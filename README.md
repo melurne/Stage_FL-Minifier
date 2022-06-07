@@ -41,6 +41,42 @@
 
 - [ ] experiment with diffing to create set covers
 
+
+
+## Day 4
+
+- Tasks
+
+- [ ] Try and run airflow pipeline
+
+
+
+- setbacks
+  
+  - Python version for pandas has deprecated some functions so the container won't build
+
+- Intended for day n+1
+
+- [ ] Figure out python versions
+
+- [ ] Get login on typhon
+
+- [ ] Experiment with pipeline
+
+
+
+## Day 5
+
+- Tasks
+
+
+
+- setbacks
+
+
+
+- Intended for day n+1
+
 ---
 
 # References
