@@ -41,15 +41,11 @@
 
 - [ ] experiment with diffing to create set covers
 
-
-
 ## Day 4
 
 - Tasks
 
-- [ ] Try and run airflow pipeline
-
-
+- [x] Try and run airflow pipeline
 
 - setbacks
   
@@ -63,19 +59,64 @@
 
 - [ ] Experiment with pipeline
 
-
-
 ## Day 5
 
 - Tasks
 
+- [x] Build docker image
 
+- setbacks
+  
+  
+
+- Intended for day n+1
+  - Experiement with pipeline
+
+## Day 6
+
+- Tasks
+
+- [x] Debug flagHTML
+
+- setbacks
+  
+  - missing folders
+
+- Intended for day n+1
+  
+  - Keep debugging
+
+## Day 7
+
+- Tasks
+
+- [x] Run flagHTML
+
+- [x] Debug generateUniqueRules
+
+- setbacks
+  
+  - missing folders
+
+- Intended for day n+1
+  
+  - Keep debugging
+
+## Day 8
+
+- Tasks
+
+- [ ] 
 
 - setbacks
 
 
 
 - Intended for day n+1
+  
+  - 
+
+
 
 ---
 
