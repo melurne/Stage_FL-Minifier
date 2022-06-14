@@ -106,15 +106,31 @@
 
 - Tasks
 
-- [ ] 
+- [x] Continue Debugging genrerateUniqueRules
+- [x] Document some code
 
 - setbacks
 
+  - Scheduler died (probably lack of RAM)
 
 
 - Intended for day n+1
   
-  - 
+  - Continue Documentation
+  - ? get workstation for more RAM ?
+
+## Day 9
+
+- Tasks
+
+- [x] Run full arflow pipeline
+- [x] Experiment with Chrome extensions
+  > Extension appends specified div at the bottom of the page and it does get blocked by uBlockOrigin so this should be usable to incorporate filterlists checking into *AmIUnique* extension 
+
+- setbacks
+
+- Intended for day n+1
+  - Continue experimenting with finding out wether the div is blocked or not from the extension itself
 
 
 
