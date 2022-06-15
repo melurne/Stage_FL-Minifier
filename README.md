@@ -132,6 +132,20 @@
 - Intended for day n+1
   - Continue experimenting with finding out wether the div is blocked or not from the extension itself
 
+## Day 10
+
+- Tasks
+
+- [x] Added temporary way to test visibility
+- [x] Run the test on idle tabs on a regular basis
+
+- setbacks
+  - After testing on other websites my initial visibility test appears to be flawed so more research needed
+
+- Intended for day n+1
+  - Figure out how to incorporate current *AmIUnique* code to the extension so that it actually tests for visibility
+  - Figure out how to schedule all tests so that it doesn't negetively affect user experience
+
 
 
 ---
