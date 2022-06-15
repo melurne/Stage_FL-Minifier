@@ -12,6 +12,6 @@
 			"js": ["content-script.js"]
 		}
 	],
-	"permissions": ["storage", "tabs", "scripting", "https://*/", "http://*/"],
+	"permissions": ["storage", "tabs", "scripting"],
 	"host_permissions": ["https://*/*"]
 }
