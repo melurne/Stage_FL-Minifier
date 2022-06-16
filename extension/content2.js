@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-	var dv = document.createElement('div');
-	dv.id = "myId";
-	dv.className = "hy";
-	dv.innerHTML = "test";
-	document.body.appendChild(dv);
+	fetch("http://localhost:8080/rules").then((res) => {
+		res.json().then(res => {
+			res.classNames.map((className) => {
+				var dv = document.createElement('div');
+				dv.id = "myId";
+				dv.className = className;
+				dv.innerHTML = "test";
+				document.body.appendChild(dv);
 
-	//await new Promise(r => setTimeout(r, 2000));
-
-	chrome.runtime.sendMessage({className: "ad-boxes", visibility: getComputedStyle(dv, null).display});
+				chrome.runtime.sendMessage({className: className, visibility: getComputedStyle(dv, null).display});
+			});
+		});
+	});
 });
