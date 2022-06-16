@@ -144,7 +144,20 @@
 
 - Intended for day n+1
   - Figure out how to incorporate current *AmIUnique* code to the extension so that it actually tests for visibility
-  - Figure out how to schedule all tests so that it doesn't negetively affect user experience
+  - Figure out how to schedule all tests so that it doesn't negatively affect user experience
+
+## Day 11
+
+- Tasks
+
+- [x] Move check to on_start so that the adblocker can act on it
+- [x] Create a small api endpoint to fetch a list of properties for elements to check
+
+- setbacks
+
+- Intended for day n+1
+  - Fetch data from the actual dataset
+  - Figure out how t oschedule all tests so that it doesn't negatively effect user experience
 
 
 
