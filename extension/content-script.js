@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
 	document.body.appendChild(dv);
 	const style = getComputedStyle(dv, null);
 	sendResponse({display: style.display});
-	document.body.removeChild(dv);
+	//document.body.removeChild(dv);
 });
 
 

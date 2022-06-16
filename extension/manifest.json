@@ -8,8 +8,9 @@
 	},
 	"content_scripts": [
 		{
+			"run_at": "document_start",
 			"matches": ["*://*/*"],
-			"js": ["content-script.js"]
+			"js": ["content2.js"]
 		}
 	],
 	"permissions": ["storage", "tabs", "scripting"],
