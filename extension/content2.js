@@ -7,8 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				dv.className = className;
 				dv.innerHTML = "test";
 				document.body.appendChild(dv);
-
-				chrome.runtime.sendMessage({className: className, visibility: getComputedStyle(dv, null).display});
+				
+				chrome.runtime.sendMessage({
+								className: className, 
+								visibility: getComputedStyle(dv, null).display
+				}, () => {
+					document.body.removeChild(dv);
+				});
 			});
 		});
 	});
