@@ -157,7 +157,7 @@
 
 - Intended for day n+1
   - Fetch data from the actual dataset
-  - Figure out how t oschedule all tests so that it doesn't negatively effect user experience
+  - Figure out how to schedule all tests so that it doesn't negatively effect user experience
 
 
 
