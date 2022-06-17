@@ -159,6 +159,18 @@
   - Fetch data from the actual dataset
   - Figure out how to schedule all tests so that it doesn't negatively effect user experience
 
+## Day 12
+
+- Tasks
+
+- [x] Test blocking on several sites and with several adBlockers (so far uBlockOrigin works on every tested site, while ghostery only works on some)
+
+- setbacks
+  - AdBlockers' behaviour is inconsistent in my testing (the same element gets blocked by some but not all sites even with the same single adBlocker enabled)
+
+- Intended for day n+1
+  - Figure out how to properly inject the elements so that they are properly blocked everywhere and by every common adBlocker
+
 
 
 ---
