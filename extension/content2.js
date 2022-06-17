@@ -6,14 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				dv.id = "myId";
 				dv.className = className;
 				dv.innerHTML = "test";
-				document.body.appendChild(dv);
-				
-				chrome.runtime.sendMessage({
-								className: className, 
-								visibility: getComputedStyle(dv, null).display
-				}, () => {
-					document.body.removeChild(dv);
-				});
+				document.body.appendChild(dv);	
+				setTimeout(() => {
+					chrome.runtime.sendMessage({
+									className: className, 
+									visibility: getComputedStyle(dv, null).display
+					}, () => {
+						document.body.removeChild(dv);
+						//return 0;
+					});
+				}, 10000);
 			});
 		});
 	});

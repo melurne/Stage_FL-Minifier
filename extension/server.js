@@ -5,6 +5,8 @@ app.use(cors());
 
 const rules = {classNames: ["ad-boxes", "hey"]};
 
+//const rules = {classNames: Array(200).map(i => {i = "ad-boxes"})};
+
 app.get('/rules', (req, res) => {
 	res.send(rules);
 });
