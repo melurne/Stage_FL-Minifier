@@ -171,6 +171,15 @@
 - Intended for day n+1
   - Figure out how to properly inject the elements so that they are properly blocked everywhere and by every common adBlocker
 
+## Day 13
+
+-Tasks
+
+- [x] Test multiple elements to insert to figure out what is wrong with uBlock
+  - Insert `<img>` element instead of `<div>`
+  - Add `src` option to test network rules (works!)
+  - Manually add domain specific rule `www.google.com###ad-boxes` to try and force the block which worked
+  -  
 
 
 ---

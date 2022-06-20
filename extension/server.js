@@ -3,7 +3,7 @@ const cors = require("cors");
 var app = express();
 app.use(cors());
 
-const rules = {classNames: ["ad-boxes", "hey"]};
+const rules = {classNames: ["ad-boxes", "hey", "AdBar"]};
 
 //const rules = {classNames: Array(200).map(i => {i = "ad-boxes"})};
 
