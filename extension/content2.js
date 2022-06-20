@@ -3,16 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		res.json().then(res => {
 			res.classNames.map((className) => {
 				var dv = document.createElement('div');
-				dv.id = "myId";
-				dv.className = className;
-				dv.innerHTML = "test";
-				document.body.appendChild(dv);	
+				dv.innerHTML = "<div class=" + className + ">test</div>";
+				var elem = dv.firstChild;
+				document.body.appendChild(elem);	
 				setTimeout(() => {
 					chrome.runtime.sendMessage({
 									className: className, 
-									visibility: getComputedStyle(dv, null).display
+									visibility: getComputedStyle(elem, null).display
 					}, () => {
-						document.body.removeChild(dv);
+						document.body.removeChild(elem);
 						//return 0;
 					});
 				}, 10000);
