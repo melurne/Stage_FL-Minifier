@@ -1,3 +1,13 @@
 *.swp
 */node_modules/*
 */package-lock.json
+Rapport/rapport/*.log
+Rapport/rapport/*.fls
+Rapport/rapport/*.ilg
+Rapport/rapport/*.ind
+Rapport/rapport/*.latexmk
+Rapport/rapport/*.aux
+Rapport/rapport/*.gz
+Rapport/rapport/*.toc
+Rapport/rapport/*.idx
+Rapport/rapport/*.fdb_latexmk
