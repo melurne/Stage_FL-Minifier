@@ -11,6 +11,12 @@ app.get('/rules', (req, res) => {
 	res.send(rules);
 });
 
+app.get('/scripts/:className', (req, res) => {
+	console.log(req.params.className);
+	//res.send("Fetched" + req.params.className);
+	res.send("<img id=" + req.params.className + ">")
+});
+
 app.listen(8080, () => {
 	console.log("Running on localhost:8080");
 });
