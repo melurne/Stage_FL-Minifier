@@ -10,4 +10,9 @@ Rapport/rapport/*.aux
 Rapport/rapport/*.gz
 Rapport/rapport/*.toc
 Rapport/rapport/*.idx
+Rapport/rapport/*.bbl
+Rapport/rapport/*.bcf
+Rapport/rapport/*.blg
+Rapport/rapport/*.xml
+Rapport/rapport/*.out
 Rapport/rapport/*.fdb_latexmk
