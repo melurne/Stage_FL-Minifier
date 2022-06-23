@@ -1,3 +1,5 @@
+const testFunc = require("./includeTest.js");
+
 document.addEventListener('DOMContentLoaded', () => {
 	fetch("http://localhost:8080/rules").then((res) => {
 		res.json().then(res => {
@@ -7,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							console.log(res);
 						});
 				});*/
+				testFunc("Include Works");
 				var dv = document.createElement('div');
 				dv.innerHTML = "<script id='tester'>\
 					console.log(\"testing\");\
