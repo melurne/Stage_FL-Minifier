@@ -105,13 +105,15 @@ Plus puissantes, les \textit{Cosmetic Rules} bloquent des élements dont le css 
 
 Il est également possible d'écrire des exceptions qui permettent de laisser passer des élements qui seraient bloqués par une rêgle trop générale et qui nuirait aux fonctionnalités du site.
 
-
 \subsection{Présentation AmIUnique}
 
 \paragraph*{Le Fingerprinting sur le web}
 
+Comme décrit en \ref{Intro:adblock} les cookies ont longtemps été l'outil principal pour suivre les utilisateurs sur le web, mais les efforts des adBlockers et des navigateurs comme Firefox ou Brave ont rendus leurs utilisation plus difficile ou moins efficaces qu'avant, et avec la demande pour les données utilisateur encore grimpante, de nouveaux outils plus avancés sont développés pour continuer à suivre les utilisateurs sur le web. 
 
-\cite{fingerprinting}
+Un outil qui remplis cette fonction peut-être mieux encore que les cookies le faisaient auparavant est le \textbf{Browser Fingerprinting} (\cite{fingerprinting}) le principe derrière celui-ci consiste à appliquer une approche inspirée de la \textit{data science} et d'obtenir un maximum de bribes d'information sur l'utilisateur (ou ici plutôt son navigateur) afin de les agréger en un identificateur unique permettant de suivre l'utilisateur grâce à la configuration de son navigateur que les cookies soit acceptés ou non.
+
+\paragraph*{AmIUnique} est un projet d'Inria Lille qui consiste à étudier les caractèristiques du navigateur qui permettent de l'identifier et de faire des statistiques sur les changements de l'identificateur au cours du temps grâce à une extension qui collecte les informations d'identification.
 
 \section{Corps du projet}
 
@@ -135,6 +137,7 @@ Il est également possible d'écrire des exceptions qui permettent de laisser pa
 	Lors de ce stage blablabla
 
 	\end{abstract}
+	\textbf{Mots clés: }
 	\vspace{\fill}	
 	\renewcommand{\abstractname}{Abstract}
 	\begin{abstract}
@@ -142,7 +145,7 @@ Il est également possible d'écrire des exceptions qui permettent de laisser pa
 	During this internship blablabla
 
 	\end{abstract}
-
+	\textbf{Keywords: }
 	\vspace{2cm}
 
 \end{center}
