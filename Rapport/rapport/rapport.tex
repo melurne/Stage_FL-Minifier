@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{listings}
+\lstset{language=html}
 \usepackage{array}
 \usepackage{subcaption}
 \usepackage{caption}
@@ -92,7 +93,7 @@ Comme dit précédement, le modèle économique du web consiste à montrer le pl
 
 Les utilisateurs veulent donc se débarasser un maximum des publicités à la fois pour leur confort mais aussi pour protéger les plus vulnérables des pratiques prédatoriales des entreprises. C'est là l'utilité des adBlockers qui scannent les éléments de la page et bloquent ceux qui sont détectés comme étant des publicités.
 
-\paragraph*{Les rêgles de filtrage:}
+\paragraph{Les rêgles de filtrage:}\label{Intro:adblock:filterlists}
 
 Pour détecter les élements qui font parties de publicités, les adBlockers utilisent des listes de filtres qui contiennent des caractèristiques d'élements publicitaires rencontrés sur le web. Ces listes sont maintenus régulièrement par la communauté et par des entreprises d'adBlockers pour parer aux nouvelles tentatives de contournement des distributeurs de publicités. Les listes sont de simples fichiers texte dont la syntaxe de base est définie par AdBlockPlus (ABP) \href{https://help.eyeo.com/en/adblockplus/how-to-write-filters#allowlist}{ici} et elle est étendue par uBlockOrigin (uBO) \href{https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#extended-syntax}{ici}. La syntaxe comporte deux grands types de rêgles: 
 \begin{itemize}
@@ -105,7 +106,7 @@ Plus puissantes, les \textit{Cosmetic Rules} bloquent des élements dont le css 
 
 Il est également possible d'écrire des exceptions qui permettent de laisser passer des élements qui seraient bloqués par une rêgle trop générale et qui nuirait aux fonctionnalités du site.
 
-\subsection{Présentation AmIUnique}
+\subsection{Présentation AmIUnique}\label{Intro:amiunique}
 
 \paragraph*{Le Fingerprinting sur le web}
 
@@ -113,12 +114,64 @@ Comme décrit en \ref{Intro:adblock} les cookies ont longtemps été l'outil pri
 
 Un outil qui remplis cette fonction peut-être mieux encore que les cookies le faisaient auparavant est le \textbf{Browser Fingerprinting} (\cite{fingerprinting}) le principe derrière celui-ci consiste à appliquer une approche inspirée de la \textit{data science} et d'obtenir un maximum de bribes d'information sur l'utilisateur (ou ici plutôt son navigateur) afin de les agréger en un identificateur unique permettant de suivre l'utilisateur grâce à la configuration de son navigateur que les cookies soit acceptés ou non.
 
-\paragraph*{AmIUnique} est un projet d'Inria Lille qui consiste à étudier les caractèristiques du navigateur qui permettent de l'identifier et de faire des statistiques sur les changements de l'identificateur au cours du temps grâce à une extension qui collecte les informations d'identification.
+\paragraph*{AmIUnique} est un projet d'Inria Lille qui consiste à étudier les caractèristiques du navigateur qui permettent de l'identifier et de faire des statistiques sur les changements de l'identificateur au cours du temps grâce à une extension qui collecte les informations d'identification. Le site \href{https://www.amiunique.org}{amiunique.org} comporte une partie où l'utilisateur peut visualiser les caractèrisiques de sa configuration qui peuvent permettre de l'identifier avec une indication de la quantité d'information obtenue pour chaque item par un ``Taux d'unicité'' qui donne la proportion des configurations relevées qui partagent chaque item de configuration avec vous.\\
 
-\section{Corps du projet}
+Le site comporte également une page qui permet de découvrir quelles listes de filtre (\ref{Intro:adblock:filterlists}) sont installées sur le navigateur, le but étant d'illustrer un potentiel nouveau point de données qui pourrait être ajouté au fingerprint du navigateur. L'expérience est poussée un cran plus loin avec une page qui tente de déterminer les versions spécifiques des listes installées pour obtenir plus de données susceptibles d'identifier l'utilisateur.
+
+Pour réaliser cette fonctionnalité, l'application a besoin de trois choses :
+\begin{itemize}
+	\item Un ensemble de listes de filtres à tester avec un maximum de versions possibles
+	\item Une façon de tester les rêgles pour voir si elles sont présentes sur le système
+	\item Un algorithme capable à partir de l'ensemble des rêgles bloquées de déterminer si une liste est présente ou non
+\end{itemize}
+
+La première partie est réalisée par une application basée sur l'outil \textit{Airflow}, développé par Apache, qui permet de gérer une chaine de procédures (ici des notebooks jupyter) et de s'assurer du bon fonctionnement de la pipeline grâce à un monitoring notebook par notebook et avec la possibilité d'alerter par mail d'erreurs lors de l'execution.
+
+Le but de la pipeline \textit{Airflow} est de récuperer les dernières versions des listes de filtres (à interval régulier) afin d'effectuer un premier traitement sur celles-ci qui préparera le travail pour la partie algorithmique de détection de liste. Ce pré-processing consiste à créer une couverture par ensembles (\cite{setcover}) où l'univers est l'ensemble des rêgles contenues dans toutes les listes considérées. Le but de cette aproche est de trouver un ensemble de parties de l'univers tel que 
+
+
+Pour tester si les rêgles sont présentes ou non sur le navigateur, la page de test insère des éléments html qui correspondent à des \textit{Network Rules} faisant partie de l'ensemble déterminé précedement, ces éléments sont de la forme :
+\begin{center}
+	\lstinline{<img src='source' style='visibility: hidden' />}
+\end{center}
+On peut alors vérifier une fois la page chargée pour chaque élément si il est visible ou non et alors utiliser l'algorithme associé à la couverture par ensembles déterminées précédement pour déterminer quelles listes sont installées sur le navigateur.\\
+
+On peut utiliser le même résonement lors de la détection des versions en traitant simplement chaque version différente de la liste comme étant une liste différente.
+
+
+\section{Corps du projet}\label{Projet}
+
+Le but global du stage est d'étendre et d'améliorer AmIUnique, plus particulièrement la partie qui concerne les listes de filtres. En effet un des buts de l'étude est d'observer les résultats du fingerprinting et ses changements au cours du temps pour un utilisateur donné afin de mesurer la faisabilité d'un suivi longue durée d'un utilisateur à travers le web.
+Or avec simplement une page web, on aurait besoin que les utilisateurs passe régulièrement sur le site pour vérifier leur fingerprint, ce qui est peu probable pour un grand nombre d'utilisateurs.
+C'est le rôle de l'extension, mais elle ne comporte actuellement pas la détection de listes de filtres. La création d'une extension qui inclue ces fonctionnalités fait partie de mes missions lors de ce stage. D'autres améliorations pour l'extension telles que des visualisations des changements de fingerprint au cours du temps seront également explorées.
+
+\subsection{Extension Chrome}\label{Projet:extension}
+
+Dans un premier temps il m'a fallu comprendre le fonctionnement global d'une extension chrome. Ces extensions sont programmée en \textbf{javascript} et utilisent l'API chrome.extension qui implémente un nombre d'évenements et de méthodes permettant d'intéragir avec les fenêtres et les onglets. 
+
+Pour notre application, on peut adopter une architecture composée d'un \textit{Background script} qui communique avec des \textit{Content script} via des messages. 
+\paragraph*{Le \textit{Background script}} contient du code qui tourne tout au long de la session (c'est à dire depuis l'ouverture d'une fenêtre jusqu'à sa fermeture) et il a pour but principal de gérer la communication avec les différents \textit{Content script} et de gérer l'ensemble des données nécessaires au fonctionnement de l'extension.
+\paragraph*{Les \textit{Content scripts}} eux, sont instanciés par le \textit{Background script} ou par un évenement extérieur (dans notre cas il sera instancié par l'évenement \lstinline{``document-start''} qui est lancé à chaque fois qu'une page commence à charger).\\
+
+Notre extension a pour but d'émuler le comportement de la page de test mais sans avoir besoin que l'utilisateur ne change ses habitudes de navigation. Pour réaliser cette fonction on propose le processus suivant:\\
+
+\`A chaque chargement de page l'extension insère les mêmes éléments de tests que le site web via un \textit{Constent script} et renvoie les résultats au \textit{Background script} où les résultats sont analysées par l'algorithme de couverture par ensembles de la même manière qu'avec le site web.\\
+
+Pour les \textit{Network rules}, cette démarche fonctionne sensiblement identiquement à la page de test. Cependant pour ce qui est des \textit{Cosmetic rules}, il apparait des contraintes plutôt surprenantes. En effet sur certains sites aucun des éléments insérés ne sont bloqués malgré qu'il existe une rêgle installée qui devrait s'appliquer. Suite à de nombreux tests nous avons déterminer que cela viens de quelques rêgles d'exception qui désactive le bloquage sur les éléments qui viennent de certains domaines (par exemple \lstinline{@@||www.google.*/search?$generichide} qui fait partie de Easylist). Ces domaines correspondent avec les sites sur lesquelles nos éléments ne sont pas bloqués. Cela vient de notre démarche qui utilise les \textit{Content scripts} pour insérer les éléments dans la page, en effet cela fait que la source de l'élément inséré est le script qui tourne sur la page et donc la source correspond à l'url de la page. Ce qui enclanche la rêgle d'exception et nos éléments ne sont pas bloqués. Ce problème apparait aussi lorsque le site visité fait partie des \textit{Trusted sites} sur lequel l'adBlocker est complètement désactivé.\\
+
+Pour pallier à ce problème, la solution proposée est de vérifier après le test si aucun élément n'a été bloqué, si c'est le cas c'est qu'il existe une rêgle d'exception installée pour le site visité ou que le site fait partie de la liste des \textit{Trusted sites} et la batterie de tests est donc ignorée.
+
+
+\subsection{Optimisations du processus}\label{Projet:opti}
+
 
 
 \section{Extras}
+
+\subsection{Organisation}
+
+\subsection{Vie au centre}
+
 
 
 \newpage
@@ -137,7 +190,7 @@ Un outil qui remplis cette fonction peut-être mieux encore que les cookies le f
 	Lors de ce stage blablabla
 
 	\end{abstract}
-	\textbf{Mots clés: }
+	\textbf{Mots clés: Vie privée, }
 	\vspace{\fill}	
 	\renewcommand{\abstractname}{Abstract}
 	\begin{abstract}
@@ -145,7 +198,7 @@ Un outil qui remplis cette fonction peut-être mieux encore que les cookies le f
 	During this internship blablabla
 
 	\end{abstract}
-	\textbf{Keywords: }
+	\textbf{Keywords: Privacy, adBlockers, }
 	\vspace{2cm}
 
 \end{center}
