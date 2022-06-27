@@ -161,14 +161,23 @@ Pour les \textit{Network rules}, cette démarche fonctionne sensiblement identiq
 
 Pour pallier à ce problème, la solution proposée est de vérifier après le test si aucun élément n'a été bloqué, si c'est le cas c'est qu'il existe une rêgle d'exception installée pour le site visité ou que le site fait partie de la liste des \textit{Trusted sites} et la batterie de tests est donc ignorée.
 
-
 \subsection{Optimisations du processus}\label{Projet:opti}
 
+Le second plan du projet de stage consiste à apporter des optimisations et des améliorations à la page de test. En effet celle-ci ne comporte actuellement que des tests sur les \textit{Network rules} et laisse donc un grand nombre de rêgles (\textit{Cosmetic rules}) de côté. Inclure ces \textit{Cosmetic rules} permettrait d'améliorer la précision du modèle, en effet pour les adBlockers, les \textit{Network rules} sont assez limités pour bloquer les publicités plus avancées qui ne servent pas toujours depuis le même domaine. Cela fait que les \textit{Cosmetic rules} forment un grand nombre des rêgles présentes dans les listes et leur omission influe grandement sur le précision du modèle, nottament sur les tests de versions car les \textit{Network rules} varient peu de version en version ce qui rend certaines listes impossibles à tester pour les versions.\\
 
+Par ailleur des optimisations sur l'algorithme de test sont à rechercher également pour améliorer la vitesse d'execution du test et limiter l'utilisation de ressources pour l'extension.\\
+
+\`A l'écriture de ce rapport, ces tâches n'ont pas encore pu être effectuées.
 
 \section{Extras}
 
 \subsection{Organisation}
+
+La proximité avec mes cammarades stagiaires a facilité les échanges et l'entraide notamment au début des projets pour la mise en place des outils de développement et de communication avec le reste de l'équipe.\\
+
+Au sein de l'équipe et d'Inria en général le mode de communication privilégié est \textbf{Mattermost}, un service open source de messagerie instantanée hebergé sur les serveurs d'Inria. Nous avons également accès aux services de mail (\textbf{Zimbra}) et au gitlab de l'Inria.
+
+Pour ce qui est des outils de développement, on utilise nos machines persos pour la majorité des tâches qui ne nécessitent pas de grandes puissances de calculs et on a obtenu l'accès au serveur de développement de \textbf{Spirals} pour réaliser des expériences plus demandantes en ressources.
 
 \subsection{Vie au centre}
 
