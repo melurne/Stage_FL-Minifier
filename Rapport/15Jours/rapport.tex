@@ -1,0 +1,61 @@
+\documentclass[oneside,a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\lstset{language=html}
+\usepackage{array}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{biblatex}
+\addbibresource{rapport.bib}
+\usepackage{hyperref}
+\graphicspath{{~/templates/}, {../images/}}
+
+\makeindex
+\begin{document}
+	\begin{titlepage}
+		\includegraphics[width=4cm]{logopopo.png}
+		\hspace*{\fill}
+		\includegraphics[width=6cm]{logouniv.png}
+		
+		\begin{center}
+			\vspace{1cm}
+			\textbf{Rapport après 15 jours de stage}\\
+			\vspace{1cm}
+			\textbf{\LARGE FL-Minifer}\\
+			\textbf{\large A Tool To Minify and Unify AdBlocker’s Filter Lists}\\
+			\vspace{1cm}
+			\textbf{Maxence NEUS}\\
+			\vspace{1cm}
+			\begin{tabular}{ c c }
+				\includegraphics[width=6cm]{logoInria.jpg} & \includegraphics[width=6cm]{logospirals.png}\\
+			\end{tabular}
+			
+			\vspace{\fill}
+			\textbf{2022}\\
+		\end{center}
+	\end{titlepage}
+
+\section{Arrivée à l'Inria}
+
+Lors de mon premier jours j'ai été acceuilli par Karine Lewandowski, secrétaire de l'équipe Spirals, qui m'as fait visiter les locaux.
+
+Par la suite j'ai pu réaliser des réunions avec mes camarades également en stage sous la tutelle de Mr Rudametkin afin de faire le point sur nos projets respectifs. Lors de cette réunion j'ai eu l'occasion de parler avec Naif Mehanna, doctorant chez Spirals et responsable du projet qui m'as été assigné. J'ai donc pu mieux comprendre les enjeux du projet et definir une liste de tâches pour ce début de stage.
+
+Ces tâches consistent globalement à prendre en main à la fois les concepts mis en jeu et les outils utilisés dans le projet afin de pouvoir  par la suite plus facilement incorporer mon travail dans l'architecture établie.
+
+\section{Tâches}
+
+Pour ce début de stage mes tâches ont été les suivantes :
+
+\begin{itemize}
+	\item Me documenter sur le \textit{Browser fingerprinting} par la lecture d'articles de recherche
+	\item Faire un état de l'art du fonctionnement des adBlockers et me documenter sur les listes de filtre plus particuièrement
+	\item Me familiariser avec le projet \textit{AmIUnique} et plus particulièrement son fonctionnement interne grâce aux codes fournis
+	\item Faire tourner une partie de la pipeline derrière \textit{AmIUnique} en local pour mieux comprendre son fonctionnement
+\end{itemize}
+
+Finalement, sur la fin des 15 premiers jours j'ai pu commencer à expérimenter avec une extension chrome permettant d'insérer des éléments sur les pages visitées afin de préparer le terrain pour la suite du développement.
+
+
+\end{document}
