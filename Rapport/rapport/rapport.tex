@@ -2,13 +2,10 @@
 
 \documentclass[oneside,a4paper,12pt]{article}
 \usepackage{graphicx}
-\usepackage{svg}
 \usepackage{amsmath}
 \usepackage{listings}
 \lstset{language=html}
 \usepackage{array}
-\usepackage{subcaption}
-\usepackage{caption}
 \usepackage{biblatex}
 \addbibresource{rapport.bib}
 \usepackage{hyperref}
@@ -85,9 +82,9 @@ L'équipe est composée de doctorants, de post-doctorants et d'Ingénieurs. L'é
 
 
 \subsection{Le développement durable dans l'entreprise}
-Inria s’engage dans une démarche de développement durable. Les deux axes privilégiés sont l'informatique durable et les déplacements ; l'institut s'est doté d'une "commission nationale développement durable" chargée de définir un plan pluriannuel de travail et de "commissions locales du développement durable" qui devront mettre en oeuvre des préconisations en intégrant les contraintes et spécificités de chaque site.
+Inria s’engage dans une démarche de développement durable. Les deux axes privilégiés sont l'informatique durable et les déplacements ; l'institut s'est doté d'une "commission nationale développement durable" chargée de définir un plan pluriannuel de travail et de "commissions locales du développement durable" qui devront mettre en œuvre des préconisations en intégrant les contraintes et spécificités de chaque site.
 
-Le batiment dans lequel j'ai passé mon stage est caractérisé comme "un batiment de basse consommation" : il restreint les consommations et en arrête certaines comme l'électricité la nuit.
+Le bâtiment dans lequel j'ai passé mon stage est caractérisé comme "un bâtiment de basse consommation" : il restreint les consommations et en arrête certaines comme l'électricité la nuit.
 
 
 
@@ -98,28 +95,28 @@ Le batiment dans lequel j'ai passé mon stage est caractérisé comme "un batime
 
 \paragraph*{Les cookies:}
 
-Le modèle économique du web est centré autour des données utilisateur et de la façon dont elles sont utilisées, majoritairement pour cibler au mieux des publicités qui pourront alors faire un maximum de convertions (nombres d'achats par publicité imprimée sur une page). Evidement pour cibler efficacement un utilisateur il est nécessaire de pouvoir associer un ensemble de données à un utilisateur, historiquement les cookies ont été l'outil le plus répendu pour remplir cette fonction: en incorporant un identifiant unique à chaque utilisateur dans ses requêtes HTML.\\
+Le modèle économique du web est centré autour des données utilisateur et de la façon dont elles sont utilisées, majoritairement pour cibler au mieux des publicités qui pourront alors faire un maximum de conversions (nombres d'achats par publicité imprimée sur une page). Évidement pour cibler efficacement un utilisateur il est nécessaire de pouvoir associer un ensemble de données à un utilisateur, historiquement les cookies ont été l'outil le plus rependu pour remplir cette fonction: en incorporant un identifiant unique à chaque utilisateur dans ses requêtes HTML.\\
 
 Malheureusement pour les géants du web, l'idée que quelques entreprises puissent avoir accès à une quantité alarmante de leurs données simplement par leur navigation sur le web ne plait pas vraiment aux utilisateurs. Suite à des campagnes de sensibilisation de plus en plus d'utilisateurs du web se sont retrouvés confrontés à cette réalité et désirent autant que possible limiter l'accès à leurs données de navigation. Pour cela plusieurs compagnies se sont misent à créer des extensions pour navigateurs qui permettent de bloquer les dis ``tracking cookies''. En effet tous les cookies n'ont pas pour but de traquer l'utilisateur, la technologie a été créée pour garder des informations utilisateurs essentielles à la fonctionnalité du site comme rester connecter à son compte utilisateur ou sauvegarder l'état du panier sur les sites de shopping en ligne. Ces cookies dits ``essentiels'' doivent être filtrés pour garder les fonctionnalités du site, une méthode largement utilisée est de bloquer les cookies dits ``tierces'' qui proviennent de domaines différents de celui du site visité étant donné que ceux ci sont bien souvent utilisés uniquement comme tracking cookies et peuvent donc être bloqués sans crainte de nuire aux fonctionnalités du site.
 
 \paragraph*{La publicité sur le web:}
 
-Comme dit précédement, le modèle économique du web consiste à montrer le plus de publicités intéressantes possible à l'utilisateur pour qu'il achète le plus de produits possible. Ce modèle entraîne logiquement un comportement où les sites utilisent chaque pixel d'espace libre de contenu sur leurs sites pour y servir des publicités grâce à un modèle d'enchères où les distributeurs de publicités enchèrissent le plus sur les utilisateurs avec un intérêt probable pour leurs produits.
+Comme dit précédemment, le modèle économique du web consiste à montrer le plus de publicités intéressantes possible à l'utilisateur pour qu'il achète le plus de produits possible. Ce modèle entraîne logiquement un comportement où les sites utilisent chaque pixel d'espace libre de contenu sur leurs sites pour y servir des publicités grâce à un modèle d'enchères où les distributeurs de publicités enchérissent le plus sur les utilisateurs avec un intérêt probable pour leurs produits.
 
-Les utilisateurs veulent donc se débarasser un maximum des publicités à la fois pour leur confort mais aussi pour protéger les plus vulnérables des pratiques prédatoriales des entreprises. C'est là l'utilité des adBlockers qui scannent les éléments de la page et bloquent ceux qui sont détectés comme étant des publicités.
+Les utilisateurs veulent donc se débarrasser un maximum des publicités à la fois pour leur confort mais aussi pour protéger les plus vulnérables des pratiques prédatoriales des entreprises. C'est là l'utilité des adBlockers qui scannent les éléments de la page et bloquent ceux qui sont détectés comme étant des publicités.
 
 \paragraph{Les rêgles de filtrage:}\label{Intro:adblock:filterlists}
 
-Pour détecter les élements qui font parties de publicités, les adBlockers utilisent des listes de filtres qui contiennent des caractèristiques d'élements publicitaires rencontrés sur le web. Ces listes sont maintenus régulièrement par la communauté et par des entreprises d'adBlockers pour parer aux nouvelles tentatives de contournement des distributeurs de publicités. Les listes sont de simples fichiers texte dont la syntaxe de base est définie par AdBlockPlus (ABP) \href{https://help.eyeo.com/en/adblockplus/how-to-write-filters#allowlist}{ici} et elle est étendue par uBlockOrigin (uBO) \href{https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#extended-syntax}{ici}. La syntaxe comporte deux grands types de rêgles: 
+Pour détecter les éléments qui font parties de publicités, les adBlockers utilisent des listes de filtres qui contiennent des caractéristiques d'élements publicitaires rencontrés sur le web. Ces listes sont maintenus régulièrement par la communauté et par des entreprises d'adBlockers pour parer aux nouvelles tentatives de contournement des distributeurs de publicités. Les listes sont de simples fichiers texte dont la syntaxe de base est définie par AdBlockPlus (ABP) \href{https://help.eyeo.com/en/adblockplus/how-to-write-filters#allowlist}{ici} et elle est étendue par uBlockOrigin (uBO) \href{https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#extended-syntax}{ici}. La syntaxe comporte deux grands types de règles: 
 \begin{itemize}
 \item Les \textit{Network Rules}
 \item Les \textit{Cosmetic Rules}
 \end{itemize}
-Le cas le plus simple, les \textit{Network Rules} correspondent à des rêgles qui bloquent les éléments selon l'url dont ils sont importés, ce grâce à une syntaxe similaire à des expressions réguliaires. C'est à dire que la rêgle décrits un modèle d'url qui correspond à un ensemble d'url qui devront être bloquées, par exemple ``http://example.com/ads/banner*.gif'' bloquera les élements venant de la source ``http://example.com/ads/banner420.gif'' (le caractère \textbf{*}\\ correspondant à n'importe quelle suite de caractère) mais pas \\``http://example.fr/ads/ad123.png''.
+Le cas le plus simple, les \textit{Network Rules} correspondent à des rêgles qui bloquent les éléments selon l'url dont ils sont importés, ce grâce à une syntaxe similaire à des expressions régulières. C'est à dire que la règle décrits un modèle d'url qui correspond à un ensemble d'url qui devront être bloquées, par exemple ``http://example.com/ads/banner*.gif'' bloquera les éléments venant de la source ``http://example.com/ads/banner420.gif'' (le caractère \textbf{*}\\ correspondant à n'importe quelle suite de caractère) mais pas \\``http://example.fr/ads/ad123.png''.
 
-Plus puissantes, les \textit{Cosmetic Rules} bloquent des élements dont le css correspond à une certaine description, par exemple la rêgle ``\#\#\#ad-boxes'' bloque les élements sur la page qui ont une id css de ``ad-boxes''.
+Plus puissantes, les \textit{Cosmetic Rules} bloquent des éléments dont le css correspond à une certaine description, par exemple la règle ``\#\#\#ad-boxes'' bloque les éléments sur la page qui ont une id css de ``ad-boxes''.
 
-Il est également possible d'écrire des exceptions qui permettent de laisser passer des élements qui seraient bloqués par une rêgle trop générale et qui nuirait aux fonctionnalités du site.
+Il est également possible d'écrire des exceptions qui permettent de laisser passer des élements qui seraient bloqués par une règle trop générale et qui nuirait aux fonctionnalités du site.
 
 \subsection{Présentation AmIUnique}\label{Intro:amiunique}
 
@@ -129,34 +126,31 @@ Comme décrit en \ref{Intro:adblock} les cookies ont longtemps été l'outil pri
 
 Un outil qui remplis cette fonction peut-être mieux encore que les cookies le faisaient auparavant est le \textbf{Browser Fingerprinting} (\cite{fingerprinting}) le principe derrière celui-ci consiste à appliquer une approche inspirée de la \textit{data science} et d'obtenir un maximum de bribes d'information sur l'utilisateur (ou ici plutôt son navigateur) afin de les agréger en un identificateur unique permettant de suivre l'utilisateur grâce à la configuration de son navigateur que les cookies soit acceptés ou non.
 
-\paragraph*{AmIUnique} est un projet d'Inria Lille qui consiste à étudier les caractèristiques du navigateur qui permettent de l'identifier et de faire des statistiques sur les changements de l'identificateur au cours du temps grâce à une extension qui collecte les informations d'identification. Le site \href{https://www.amiunique.org}{amiunique.org} comporte une partie où l'utilisateur peut visualiser les caractèrisiques de sa configuration qui peuvent permettre de l'identifier avec une indication de la quantité d'information obtenue pour chaque item par un ``Taux d'unicité'' qui donne la proportion des configurations relevées qui partagent chaque item de configuration avec vous.\\
+\paragraph*{AmIUnique} est un projet d'Inria Lille qui consiste à étudier les caractéristiques du navigateur qui permettent de l'identifier et de faire des statistiques sur les changements de l'identificateur au cours du temps grâce à une extension qui collecte les informations d'identification. Le site \href{https://www.amiunique.org}{amiunique.org} comporte une partie où l'utilisateur peut visualiser les caractéristiques de sa configuration qui peuvent permettre de l'identifier avec une indication de la quantité d'information obtenue pour chaque item par un ``Taux d'unicité'' qui donne la proportion des configurations relevées qui partagent chaque item de configuration avec vous.\\
 
 Le site comporte également une page qui permet de découvrir quelles listes de filtre (\ref{Intro:adblock:filterlists}) sont installées sur le navigateur, le but étant d'illustrer un potentiel nouveau point de données qui pourrait être ajouté au fingerprint du navigateur. L'expérience est poussée un cran plus loin avec une page qui tente de déterminer les versions spécifiques des listes installées pour obtenir plus de données susceptibles d'identifier l'utilisateur.
 
 Pour réaliser cette fonctionnalité, l'application a besoin de trois choses :
 \begin{itemize}
 	\item Un ensemble de listes de filtres à tester avec un maximum de versions possibles
-	\item Une façon de tester les rêgles pour voir si elles sont présentes sur le système
-	\item Un algorithme capable à partir de l'ensemble des rêgles bloquées de déterminer si une liste est présente ou non
+	\item Une façon de tester les règles pour voir si elles sont présentes sur le système
+	\item Un algorithme capable à partir de l'ensemble des règles bloquées de déterminer si une liste est présente ou non
 \end{itemize}
 
 La première partie est réalisée par une application basée sur l'outil \textit{Airflow}, développé par Apache, qui permet de gérer une chaine de procédures (ici des notebooks jupyter) et de s'assurer du bon fonctionnement de la pipeline grâce à un monitoring notebook par notebook et avec la possibilité d'alerter par mail d'erreurs lors de l'execution.
 
-Le but de la pipeline \textit{Airflow} est de récuperer les dernières versions des listes de filtres (à interval régulier) afin d'effectuer un premier traitement sur celles-ci qui préparera le travail pour la partie algorithmique de détection de liste. Ce pré-processing consiste à créer une couverture par ensembles (\cite{setcover}) où l'univers est l'ensemble des rêgles contenues dans toutes les listes considérées. Le but de cette aproche est de trouver un ensemble de parties de l'univers comme suit:
+Le but de la pipeline \textit{Airflow} est de récupérer les dernières versions des listes de filtres (à interval régulier) afin d'effectuer un premier traitement sur celles-ci qui préparera le travail pour la partie algorithmique de détection de liste. Ce pré-processing consiste à créer une couverture par ensembles (cf. annexe \ref{setcover}) où l'univers est l'ensemble des règles contenues dans toutes les listes considérées. Le but de cette approche est de trouver un ensemble de parties de l'univers comme suit:
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=8cm]{setcover.png}
-	\caption{Schéma}
-\end{figure}
-
-Pour tester si les rêgles sont présentes ou non sur le navigateur, la page de test insère des éléments html qui correspondent à des \textit{Network Rules} faisant partie de l'ensemble déterminé précedement, ces éléments sont de la forme :
+Pour tester si les règles sont présentes ou non sur le navigateur, la page de test insère des éléments html qui correspondent à des \textit{Network Rules} faisant partie de l'ensemble déterminé précédemment, ces éléments sont de la forme:]
 \begin{center}
-	\lstinline{<img src='source' style='visibility: hidden' />}
+\begin{lstlisting}
+   <img src='source' style='visibility: hidden' />
+\end{lstlisting}
 \end{center}
-On peut alors vérifier une fois la page chargée pour chaque élément si il est visible ou non et alors utiliser l'algorithme associé à la couverture par ensembles déterminées précédement pour déterminer quelles listes sont installées sur le navigateur.\\
 
-On peut utiliser le même résonement lors de la détection des versions en traitant simplement chaque version différente de la liste comme étant une liste différente.
+On peut alors vérifier une fois la page chargée pour chaque élément si il est visible ou non et alors utiliser l'algorithme associé à la couverture par ensembles déterminées précédemment pour déterminer quelles listes sont installées sur le navigateur.\\
+
+On peut utiliser le même raisonnement lors de la détection des versions en traitant simplement chaque version différente de la liste comme étant une liste différente.
 
 
 \section{Corps du projet}\label{Projet}
@@ -171,7 +165,7 @@ Dans un premier temps il m'a fallu comprendre le fonctionnement global d'une ext
 
 Pour notre application, on peut adopter une architecture composée d'un \textit{Background script} qui communique avec des \textit{Content script} via des messages. 
 \paragraph*{Le \textit{Background script}} contient du code qui tourne tout au long de la session (c'est à dire depuis l'ouverture d'une fenêtre jusqu'à sa fermeture) et il a pour but principal de gérer la communication avec les différents \textit{Content script} et de gérer l'ensemble des données nécessaires au fonctionnement de l'extension.
-\paragraph*{Les \textit{Content scripts}} eux, sont instanciés par le \textit{Background script} ou par un évenement extérieur (dans notre cas il sera instancié par l'évenement \lstinline{``document-start''} qui est lancé à chaque fois qu'une page commence à charger).\\
+\paragraph*{Les \textit{Content scripts}} eux, sont instanciés par le \textit{Background script} ou par un événement extérieur (dans notre cas il sera instancié par l'évenement \lstinline{``document-start''} qui est lancé à chaque fois qu'une page commence à charger).\\
 
 Notre extension a pour but d'émuler le comportement de la page de test mais sans avoir besoin que l'utilisateur ne change ses habitudes de navigation. Pour réaliser cette fonction on propose le processus suivant:\\
 
@@ -204,6 +198,28 @@ Pour ce qui est des outils de développement, on utilise nos machines persos pou
 \newpage
 
 \appendix
+
+\section{Couvertures par ensembles}\label{setcover}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{setcover2.png}
+	\caption{Couverture par ensembles}
+\end{figure}
+
+La figure ci dessus représente un exemple de couverture par ensemble que l'on pourrait obtenir pour un ensemble donné de listes de filtres. On ne représente ici qu'un nombre limité de listes pour plus de clarté.\\
+
+On défini $E$ l'ensemble des listes de filtres considérées, $U$ l'ensemble des règles contenues dans ces listes. On considère $A, B, C, D \in E$ et $r_1, r_2, \cdots, r_{12} \in U$. On note $\mathcal{B}$ l'ensemble des règles bloquées lors du test et $\overline{\mathcal{B}}$ l'ensemble des règles non bloquées.
+
+Soit un test tel que :
+\[ \mathcal{B} = \{r_1, r_2, r_4, r_5, r_7, r_8, r_9, r_{10}, r_{11}, r_{12}\} \]
+\[ \overline{\mathcal{B}} = \{r_3, r_6\} \]
+
+On en remarque que $A \cap B = \{r_2, r_5, r_8\} \subset \mathcal{B}$ et donc que au moins l'un de $A$ ou $B$ fait partie des listes installées. On remarque également que $\{r_3, r_6\} \subset B $ et $\{r_3, r_6\} \subset \overline{\mathcal{B}} $ et on en déduit que $B$ ne fait pas partie des listes installées.\\
+
+On peut effectuer le même raisonnement sur les autres intersections de listes et en déduire que les listes $A$ et $C$ sont installées mais que la liste $B$ ne l'est pas.
+
+
 \printbibliography
 
 \newpage
