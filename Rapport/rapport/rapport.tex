@@ -1,5 +1,8 @@
+
+
 \documentclass[oneside,a4paper,12pt]{article}
 \usepackage{graphicx}
+\usepackage{svg}
 \usepackage{amsmath}
 \usepackage{listings}
 \lstset{language=html}
@@ -139,8 +142,13 @@ Pour réaliser cette fonctionnalité, l'application a besoin de trois choses :
 
 La première partie est réalisée par une application basée sur l'outil \textit{Airflow}, développé par Apache, qui permet de gérer une chaine de procédures (ici des notebooks jupyter) et de s'assurer du bon fonctionnement de la pipeline grâce à un monitoring notebook par notebook et avec la possibilité d'alerter par mail d'erreurs lors de l'execution.
 
-Le but de la pipeline \textit{Airflow} est de récuperer les dernières versions des listes de filtres (à interval régulier) afin d'effectuer un premier traitement sur celles-ci qui préparera le travail pour la partie algorithmique de détection de liste. Ce pré-processing consiste à créer une couverture par ensembles (\cite{setcover}) où l'univers est l'ensemble des rêgles contenues dans toutes les listes considérées. Le but de cette aproche est de trouver un ensemble de parties de l'univers tel que 
+Le but de la pipeline \textit{Airflow} est de récuperer les dernières versions des listes de filtres (à interval régulier) afin d'effectuer un premier traitement sur celles-ci qui préparera le travail pour la partie algorithmique de détection de liste. Ce pré-processing consiste à créer une couverture par ensembles (\cite{setcover}) où l'univers est l'ensemble des rêgles contenues dans toutes les listes considérées. Le but de cette aproche est de trouver un ensemble de parties de l'univers comme suit:
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{setcover.png}
+	\caption{Schéma}
+\end{figure}
 
 Pour tester si les rêgles sont présentes ou non sur le navigateur, la page de test insère des éléments html qui correspondent à des \textit{Network Rules} faisant partie de l'ensemble déterminé précedement, ces éléments sont de la forme :
 \begin{center}
@@ -192,8 +200,6 @@ Au sein de l'équipe et d'Inria en général le mode de communication privilégi
 Pour ce qui est des outils de développement, on utilise nos machines persos pour la majorité des tâches qui ne nécessitent pas de grandes puissances de calculs et on a obtenu l'accès au serveur de développement de \textbf{Spirals} pour réaliser des expériences plus demandantes en ressources.
 
 \subsection{Vie au centre}
-
-
 
 \newpage
 
