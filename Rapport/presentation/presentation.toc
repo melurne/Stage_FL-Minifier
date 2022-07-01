@@ -1,7 +1,11 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {1}{Contexte du stage}{3}{0}{1}
+\beamer@sectionintoc {1}{Contexte du stage}{2}{0}{1}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {1}{1}{Inria}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Inria}{2}{0}{1}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {1}{2}{Le projet AmIUnique}{4}{0}{1}
+\beamer@subsectionintoc {1}{2}{Le projet AmIUnique}{3}{0}{1}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {2}{Travaux effectués}{10}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {2}{1}{Extension}{10}{0}{2}

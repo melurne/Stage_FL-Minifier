@@ -1,0 +1,19 @@
+\frametitle{Extension Chrome}
+\framesubtitle{Plan pour le suite}
+		\centering
+		\begin{tabular}{m{0.45\textwidth} m{0.45\textwidth}}
+			Network Rules & Cosmetic Rules \\
+			\hline
+			\begin{itemize}
+				\item Récupérer le code \textit{AmIUnique}
+				\item Transforme l'interface express avec des messages Chrome
+				\item Gérer la base de donnée depuis Chrome
+			\end{itemize} &
+			\begin{itemize}
+				\item Prendre en compte les Trusted sites et règles d'exception
+				\item Si rien n'est bloqué, alors le test est ignoré
+			\end{itemize}
+		\end{tabular}
+		\vspace{2em}
+		Package le code dans un plugin
+		

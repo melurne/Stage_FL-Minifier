@@ -4,6 +4,7 @@
 \usepackage{listings}
 \lstset{language=html}
 \usepackage{array}
+\usepackage{pdfpages}
 \usepackage{biblatex}
 \addbibresource{rapport.bib}
 \usepackage{hyperref}
@@ -35,7 +36,7 @@
 				\textbf{Polytech Lille} & \textbf{Inria} \\
 				\hline
 				& \\
-				Secrétariat - Bureau & 40 Av. Halley \\
+				Secrétariat - SE & 40 Av. Halley \\
 				Boulevard Paul Langevin - Cité Scientifique & 59650 Villeneuve d'Ascq \\
 				59655 VILLENEUVE D’ASCQ CEDEX & Tuteur Entreprise : \\
 				03-28-76-73-60 & \textbf{Walter RUDAMETKIN} \\
@@ -50,6 +51,13 @@
 	\end{titlepage}
 
 \tableofcontents
+
+
+\vfill
+\paragraph{Remerciements}\paragraph{}
+Avant de présenter le projet de mon stage, j'aimerai remercier mon tuteur \textbf{Walter Rudametkin} pour l'opportunité qu'il m'as accordé, \textbf{Naif Mehanna} qui nous a encadré sur les projets ainsi que tous les membres de l'équipe qui m'ont aidé tant sur le plan technique que relationnel. 
+
+Pour l'ambiance agréable de travail je remercie mes camarades de Polytech \textbf{Maxence Laurent} et \textbf{Ali Khalaf} ainsi que nos camarades de l'IMT Lille Douai \textbf{Clarice Goulet} et \textbf{Eliot Shaw}.
 
 \newpage
 
@@ -155,21 +163,21 @@ On peut utiliser le même raisonnement lors de la détection des versions en tra
 
 Le but global du stage est d'étendre et d'améliorer AmIUnique, plus particulièrement la partie qui concerne les listes de filtres. En effet un des buts de l'étude est d'observer les résultats du fingerprinting et ses changements au cours du temps pour un utilisateur donné afin de mesurer la faisabilité d'un suivi longue durée d'un utilisateur à travers le web.
 Or avec simplement une page web, on aurait besoin que les utilisateurs passe régulièrement sur le site pour vérifier leur fingerprint, ce qui est peu probable pour un grand nombre d'utilisateurs.
-C'est le rôle de l'extension, mais elle ne comporte actuellement pas la détection de listes de filtres. La création d'une extension qui inclue ces fonctionnalités fait partie de mes missions lors de ce stage. D'autres améliorations pour l'extension telles que des visualisations des changements de fingerprint au cours du temps seront également explorées.
+C'est le rôle de l'extension, mais elle ne comporte actuellement pas la détection de listes de filtres. La création d'une extension qui inclue ces fonctionnalités fait partie de mes missions lors de ce stage. D'autres améliorations pour l'extension telles que des visualisations des changements de fingerprint au cours du temps seront également explorées. (G4.1)
 
 \subsection{Extension Chrome}\label{Projet:extension}
 
-Dans un premier temps il m'a fallu comprendre le fonctionnement global d'une extension chrome. Ces extensions sont programmée en \textbf{javascript} et utilisent l'API chrome.extension qui implémente un nombre d'évenements et de méthodes permettant d'intéragir avec les fenêtres et les onglets. 
+Dans un premier temps il m'a fallu comprendre le fonctionnement global d'une extension chrome. Ces extensions sont programmée en \textbf{javascript} et utilisent l'API chrome.extension qui implémente un nombre d'événements et de méthodes permettant d'interagir avec les fenêtres et les onglets. 
 
 Pour notre application, on peut adopter une architecture composée d'un \textit{Background script} qui communique avec des \textit{Content script} via des messages. 
 \paragraph*{Le \textit{Background script}} contient du code qui tourne tout au long de la session (c'est à dire depuis l'ouverture d'une fenêtre jusqu'à sa fermeture) et il a pour but principal de gérer la communication avec les différents \textit{Content script} et de gérer l'ensemble des données nécessaires au fonctionnement de l'extension.
-\paragraph*{Les \textit{Content scripts}} eux, sont instanciés par le \textit{Background script} ou par un événement extérieur (dans notre cas il sera instancié par l'évenement \lstinline{``document-start''} qui est lancé à chaque fois qu'une page commence à charger).\\
+\paragraph*{Les \textit{Content scripts}} eux, sont instanciés par le \textit{Background script} ou par un événement extérieur (dans notre cas il sera instancié par l'événement \lstinline{``document-start''} qui est lancé à chaque fois qu'une page commence à charger).\\
 
 Notre extension a pour but d'émuler le comportement de la page de test mais sans avoir besoin que l'utilisateur ne change ses habitudes de navigation. Pour réaliser cette fonction on propose le processus suivant:\\
 
-\`A chaque chargement de page l'extension insère les mêmes éléments de tests que le site web via un \textit{Constent script} et renvoie les résultats au \textit{Background script} où les résultats sont analysées par l'algorithme de couverture par ensembles de la même manière qu'avec le site web.\\
+\`A chaque chargement de page l'extension insère les mêmes éléments de tests que le site web via un \textit{Constent script} et renvoie les résultats au \textit{Background script} où les résultats sont analysées par l'algorithme de couverture par ensembles de la même manière qu'avec le site web.\\ (G4.2)
 
-Pour les \textit{Network rules}, cette démarche fonctionne sensiblement identiquement à la page de test. Cependant pour ce qui est des \textit{Cosmetic rules}, il apparait des contraintes plutôt surprenantes. En effet sur certains sites aucun des éléments insérés ne sont bloqués malgré qu'il existe une rêgle installée qui devrait s'appliquer. Suite à de nombreux tests nous avons déterminer que cela viens de quelques rêgles d'exception qui désactive le bloquage sur les éléments qui viennent de certains domaines (par exemple \lstinline{@@||www.google.*/search?$generichide} qui fait partie de Easylist). Ces domaines correspondent avec les sites sur lesquelles nos éléments ne sont pas bloqués. Cela vient de notre démarche qui utilise les \textit{Content scripts} pour insérer les éléments dans la page, en effet cela fait que la source de l'élément inséré est le script qui tourne sur la page et donc la source correspond à l'url de la page. Ce qui enclanche la rêgle d'exception et nos éléments ne sont pas bloqués. Ce problème apparait aussi lorsque le site visité fait partie des \textit{Trusted sites} sur lequel l'adBlocker est complètement désactivé.\\
+Pour les \textit{Network rules}, cette démarche fonctionne sensiblement identiquement à la page de test. Cependant pour ce qui est des \textit{Cosmetic rules}, il apparait des contraintes plutôt surprenantes. En effet sur certains sites aucun des éléments insérés ne sont bloqués malgré qu'il existe une rêgle installée qui devrait s'appliquer. Suite à de nombreux tests nous avons déterminer que cela viens de quelques rêgles d'exception qui désactive le bloquage sur les éléments qui viennent de certains domaines (par exemple \lstinline{@@||www.google.*/search?$generichide} qui fait partie de Easylist). Ces domaines correspondent avec les sites sur lesquelles nos éléments ne sont pas bloqués. Cela vient de notre démarche qui utilise les \textit{Content scripts} pour insérer les éléments dans la page, en effet cela fait que la source de l'élément inséré est le script qui tourne sur la page et donc la source correspond à l'url de la page. Ce qui enclanche la rêgle d'exception et nos éléments ne sont pas bloqués. Ce problème apparait aussi lorsque le site visité fait partie des \textit{Trusted sites} sur lequel l'adBlocker est complètement désactivé.\\ (G4.3)
 
 Pour pallier à ce problème, la solution proposée est de vérifier après le test si aucun élément n'a été bloqué, si c'est le cas c'est qu'il existe une rêgle d'exception installée pour le site visité ou que le site fait partie de la liste des \textit{Trusted sites} et la batterie de tests est donc ignorée.
 
@@ -181,22 +189,38 @@ Par ailleur des optimisations sur l'algorithme de test sont à rechercher égale
 
 \`A l'écriture de ce rapport, ces tâches n'ont pas encore pu être effectuées.
 
+\newpage
 \section{Extras}
 
 \subsection{Organisation}
 
-La proximité avec mes cammarades stagiaires a facilité les échanges et l'entraide notamment au début des projets pour la mise en place des outils de développement et de communication avec le reste de l'équipe.\\
+La proximité avec mes camarades stagiaires a facilité les échanges et l'entraide notamment au début des projets pour la mise en place des outils de développement et de communication avec le reste de l'équipe.\\ (G11.4)
 
-Au sein de l'équipe et d'Inria en général le mode de communication privilégié est \textbf{Mattermost}, un service open source de messagerie instantanée hebergé sur les serveurs d'Inria. Nous avons également accès aux services de mail (\textbf{Zimbra}) et au gitlab de l'Inria.
+Au sein de l'équipe et d'Inria en général le mode de communication privilégié est \textbf{Mattermost}, un service open source de messagerie instantanée héberge sur les serveurs d'Inria. Nous avons également accès aux services de mail (\textbf{Zimbra}) et au gitlab de l'Inria. (G11.2)
 
-Pour ce qui est des outils de développement, on utilise nos machines persos pour la majorité des tâches qui ne nécessitent pas de grandes puissances de calculs et on a obtenu l'accès au serveur de développement de \textbf{Spirals} pour réaliser des expériences plus demandantes en ressources.
+Nous faisions également régulièrement des rapports sur l'avancée du projet, les points bloquants et nos plans pour la suite à la fois pour informer nos encadrant et aussi pour formaliser notre avancé et prévoir la veille le travail à réaliser pour le lendemain.
+
+Pour ce qui est des outils de développement, on utilise nos machines personnelles pour la majorité des tâches qui ne nécessitent pas de grandes puissances de calculs et on a obtenu l'accès au serveur de développement de \textbf{Spirals} pour réaliser des expériences plus demandantes en ressources.
 
 \subsection{Vie au centre}
 
+Peu après notre arrivée nous avons été conviés à une matinée d'intégration avec les autres nouveaux stagiaires du centre où nous a été présenté le centre, ces équipes et la chaîne de direction dans son ensemble. (G8)
 
+Lors de notre séjour à Inria nous avons aussi eu l'occasion de participer aux événements organisés par l'équipe et par le centre en général. Parmi ces événements figurent des séminaires d'équipe où des papiers en cours d'écriture ont pu être présentés afin d'avoir des retours et des questions sur le travail effectué. (G11.3)
+
+Ces différents événements ainsi que les repas du midi à la cafétéria nous ont permis de discuter avec différents membres de l'équipe et ainsi de créer des liens d'entraide avec les autres stagiaires et d'en apprendre plus sur le métier de la part des permanents et doctorants. La grande diversité d'origines au sein du centre nous a aussi permis de découvrir des cultures diverses, notre connaissance de l'anglais nous a beaucoup aidé pour cela. (G13)
 
 \newpage
 
+\section{Conclusion}
+
+Réaliser un stage sur un sujet de recherche plutôt que sur un projet à but lucratif a permis d'avoir une vision différente sur la discipline et a surtout permis de travailler les outils utilisés dans le privé dans un cadre différent où l'expérimentation est encouragée. Contribuer à un projet de recherche demande des compétences un peu différentes de celles que l'on pourrait attendre en entreprise, en effet la nature ouverte d'un sujet de recherche apporte plus de liberté dans les choix de direction et favorise l'exploration du thème englobant le sujet. En revanche il nécessite aussi une discipline plus grande pour rester centré sur le projet pour l'amener vers l'avant et ne pas s'éparpiller sur des tangentes qui ne font pas avancer le projet.\\
+
+\^Etre entouré d'experts dans des domaines aussi variés dans la m\^eme \'equipe fait prendre conscience de l'\'etendue du domaine et donne envie de toujours plus s'informer et d'en apprendre plus sur ce qui se passe à la frontière en discutant avec ceux qui l'\'ecrivent.
+
+En terme de comp\'etences techniques, j'en ai beaucoup appris sur le web en général et sur les navigateurs en particulier que ce soit sur la fa\c{c}on dont fonctionne les extensions ou sur la pipeline qui lie le contenu du web à ce qui est finalement affiché à l'écran. J'ai pu par ailleurs me familiariser un peu plus avec des outils comme \texttt{docker}, \texttt{node} et les outils de développement \texttt{Google Chrome}
+
+\newpage
 \appendix
 
 \section{Couvertures par ensembles}\label{setcover}
@@ -233,6 +257,39 @@ On conjecture que $\mathcal{M}$ peut être construit en prenant un élément de 
 
 \newpage
 
+\section{SWOT Projet professionnel}
+
+\begin{figure}[h]
+	\begin{tabular}{ m{6.5cm} | m{6.5cm} }
+		\begin{itemize} 
+			\item[] Strenghts
+			\item Capacité d'adaptation
+			\item Autonomie
+			\item Rigueur
+		\end{itemize} &
+		\begin{itemize}
+			\item[] Weaknesses 
+			\item Difficultés de communication
+			\item Peu d'expérience
+		\end{itemize} \\
+		\hline
+		\begin{itemize}	
+			\item[] Opportunities
+			\item Découverte de nouveaux domaines
+			\item Rencontres diverses
+			\item Possibilité de poursuites en PFE 
+		\end{itemize} &
+		\begin{itemize} 
+			\item[] Threats
+			\item Manque de certaines compétences utiles dans le privé
+		\end{itemize} \\
+	\end{tabular}
+\end{figure}
+
+
+\includepdf{autoeval.pdf}
+\includepdf{CV.pdf}
+\nocite{*}
 \printbibliography
 
 \newpage
@@ -243,18 +300,19 @@ On conjecture que $\mathcal{M}$ peut être construit en prenant un élément de 
 	\renewcommand{\abstractname}{Résumé}
 	\begin{abstract}
 	
-	Lors de ce stage blablabla
+	Lors de ce stage j'ai rejoins une équipe de recherche spécialisée dans la vie privée sur le web et j'ai été chargé d'apporter des améliorations à un projet existant. J'ai d'abord dû me familiariser avec les concepts abordés, notamment le \textit{Browser fingerprinting} afin d'apporter une contribution intéressante au projet. Avec l'aide des membres de l'équipe et après lecture de papiers de recherche, J'ai pu proposer des expériences et trouver un plan d'action pour la suite du projet. \`A l'écriture de ce rapport, ce plan n'a pas encore pu être  mis en action.
+	Les interactions avec les membres de l'équipe ont consolidé mes compétences de communication et m'ont poussé à poursuivre une thèse après mon diplôme.
 
 	\end{abstract}
-	\textbf{Mots clés: Vie privée, }
+	\textbf{Mots clés: Vie privée, adBlockers, Recherche, Web}
 	\vspace{\fill}	
 	\renewcommand{\abstractname}{Abstract}
 	\begin{abstract}
 	
-	During this internship blablabla
+	During this internship I was incorporated into a research team specialized in web privacy and I was tasked with improving upon an existing project. I first had to get comfortable with the concepts at play, namely browser fingerprinting, so that I could miningfully add to the project. With the help of members of the team and after reading research papers on the matter I managed to come up with experiments to figure out a plan for the continuation of the project, though at the time of writing said plans are yet to have been enacted. Interactions with the team have consolidated both my communication skills and my will to push for a thesis after my graduation.
 
 	\end{abstract}
-	\textbf{Keywords: Privacy, adBlockers, }
+	\textbf{Keywords: Privacy, adBlockers, Research, Web}
 	\vspace{2cm}
 
 \end{center}

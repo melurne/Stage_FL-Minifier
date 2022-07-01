@@ -19,6 +19,52 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{naif}{article}{}
+      \name{author}{1}{}{%
+        {{hash=4020216443f11f25e29237b41c345ed6}{%
+           family={Authors},
+           familyi={A\bibinitperiod},
+           given={Anonymous},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{fullhash}{4020216443f11f25e29237b41c345ed6}
+      \strng{bibnamehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authorbibnamehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authornamehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authorfullhash}{4020216443f11f25e29237b41c345ed6}
+      \field{sortinit}{A}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Web Conference}
+      \field{title}{The ad blocking paradox: On the privacy risks of identifying installed filter lists}
+      \field{year}{2021}
+      \true{nocite}
+    \endentry
+    \entry{eckersley}{article}{}
+      \name{author}{1}{}{%
+        {{hash=13f6c14b142861ec281b6e049c9ceddd}{%
+           family={Eckersley},
+           familyi={E\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{13f6c14b142861ec281b6e049c9ceddd}
+      \strng{fullhash}{13f6c14b142861ec281b6e049c9ceddd}
+      \strng{bibnamehash}{13f6c14b142861ec281b6e049c9ceddd}
+      \strng{authorbibnamehash}{13f6c14b142861ec281b6e049c9ceddd}
+      \strng{authornamehash}{13f6c14b142861ec281b6e049c9ceddd}
+      \strng{authorfullhash}{13f6c14b142861ec281b6e049c9ceddd}
+      \field{sortinit}{E}
+      \field{sortinithash}{c554bd1a0b76ea92b9f105fe36d9c7b0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Electronic Frontier Foundation}
+      \field{title}{How Unique Is Your Web Browser?}
+      \field{year}{2010}
+      \true{nocite}
+    \endentry
     \entry{fingerprinting}{article}{}
       \name{author}{1}{}{%
         {{hash=fce7c29f566aa361b951a4eae64c6a03}{%
@@ -42,6 +88,7 @@
       \field{journaltitle}{IEEE Symposium on Security and Privacy}
       \field{title}{Beauty and the Beast: Diverting modern web browsers to build unique browser fingerprints}
       \field{year}{2016}
+      \true{nocite}
     \endentry
   \enddatalist
 \endrefsection
