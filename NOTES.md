@@ -22,3 +22,22 @@ Local data on tests which pass on each page `PageTestData`
 > If none of the tests pass => test run is ignored and the page URL is added to `BustURLs`
 
 > Otherwise `GlobalTestData` is updated with the results
+
+
+## Algorithm Idea
+
+Instead of running the logic on the page, we just get a Boolean array containing the detected status of every tested rule.
+On the backend (when we get a new version) we generate a LookUpTable which associates possible outcomes of the tests with detected lists (we could probably generate them using the Lists directly instead of using the same kind of algorithm as the page).
+We can make a simple API request to the server to get the result simply using the test data.
+
+=> potentially a lot faster on the page and we can also use it in the extension 
+=> Requires a bit of work on the backend to create the LUT + maybe a lot of extra space on the server depending on the size of the LUT -> requires minifying the number of rules tested
+=> we need to discuss the API openness status
+
+### API
+- GET `tests`
+	- `List<testElem> tests` avec Id unique
+- GET  `result/[testData]`
+	- return `List<FL> Detected`
+- POST `resultat/*Cookie*`
+	- resultats -> db
