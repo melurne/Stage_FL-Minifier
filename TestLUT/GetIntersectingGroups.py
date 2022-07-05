@@ -48,6 +48,16 @@ for i, line in enumerate(lines[1:-1]) :
 		else :
 			lists[fl].add(test)
 
+todel = []
+for fl, rules in zip(lists.keys(), lists.values()) :
+	if len(rules) == 1 :
+		todel.append(fl)
+
+for fl in todel :
+	del[lists[fl]]
+
+del[lists[list(lists.keys())[60]]]
+
 for fl, rules in zip(list(lists.keys()), list(lists.values())) :
 	if len(Group.Groupes) == 0 :
 		Group.Groupes.append(Group())

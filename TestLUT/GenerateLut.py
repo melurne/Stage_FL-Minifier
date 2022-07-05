@@ -4,6 +4,7 @@ csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.cs
 
 universe = []
 lists = dict({})
+individualIntersections = set({})
 
 with open(csvPath, "r") as f :
 	lines = f.readlines();
@@ -15,20 +16,26 @@ for i, line in enumerate(lines[1:-1]) :
 
 	universe.append(test)
 
+	individualIntersections.add(fls)
+
 	for fl in fls.split("|") :
 		if fl not in lists.keys() :
 			lists[fl] = {test}
 		else :
 			lists[fl].add(test)
 
-#print([len(fl) for fl in lists.values()])
-# todel = []
-# for fl, rules in zip(lists.keys(), lists.values()) :
-# 	if len(rules) == 1 :
-# 		todel.append(fl)
+print(len(individualIntersections))
 
-# for fl in todel :
-# 	del[lists[fl]]
+#print([len(fl) for fl in lists.values()])
+todel = []
+for fl, rules in zip(lists.keys(), lists.values()) :
+	if len(rules) == 1 :
+		todel.append(fl)
+
+for fl in todel :
+	del[lists[fl]]
+
+del[lists[list(lists.keys())[60]]]
 
 values = list(lists.values())
 
@@ -78,13 +85,12 @@ for i, fli in enumerate(lists.values()) :
 # for i in range(len(intersections)) :
 # 	print([len(intersections[i][j]) for j in range(len(intersections[i]))])
 
-print(list(lists.keys())[0])
-print(len(list(lists.values())[0]))
-
 print(list(lists.keys()))
 for i in range(len(intersections)) :
 	for j in range(len(intersections[i])) :
-		if len(intersections[i][j]) != 0 :
+		if len(intersections[i][j]) in {0} :
 			plt.plot(j, -i, marker="o", markersize=0.3, color="green")
+		if len(list(lists.values())[i]) == 1 :
+			plt.plot(j, -i, marker="o", markersize=0.3, color="red")
 
 plt.show()
