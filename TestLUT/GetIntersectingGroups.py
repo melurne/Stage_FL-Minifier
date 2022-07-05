@@ -30,6 +30,8 @@ csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.cs
 universe = []
 lists = dict({})
 
+intersections = set({})
+
 with open(csvPath, "r") as f :
 	lines = f.readlines();
 
@@ -46,24 +48,21 @@ for i, line in enumerate(lines[1:-1]) :
 		else :
 			lists[fl].add(test)
 
-for name, rules in zip(list(lists.keys()), list(lists.values())) :
-	print(len(Group.Groupes), end=' ')
-	foundGroupes = set({})
-	for rule in rules :
-		for g in Group.Groupes :
-			if g.isIn(rule) :
-				foundGroupes.add(g)
-	if len(foundGroupes) == 0 :
+for fl, rules in zip(list(lists.keys()), list(lists.values())) :
+	if len(Group.Groupes) == 0 :
 		Group.Groupes.append(Group())
-		Group.Groupes[-1].addFL(name, rules)
-	elif len(foundGroupes) == 1 :
-		list(foundGroupes)[0].addFL(name, rules)
+		Group.Groupes[-1].addFL(fl, rules)
 	else :
-		newG = fuse(foundGroupes)
-		newG.addFL(name, rules)
-		for g in foundGroupes :
-			Group.Groupes.remove(g)
-		Group.Groupes.append(newG)
+		found = False
+		for g in Group.Groupes :
+			if len(rules.intersection( g.rules)) != 0 :
+				print("f", end=' ')
+				g.addFL(fl, rules)
+				found = True
+		if not found :
+			Group.Groupes.append(Group())
+			Group.Groupes[-1].addFL(fl, rules)
+
 
 print()
 
