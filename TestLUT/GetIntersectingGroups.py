@@ -56,16 +56,17 @@ for fl, rules in zip(list(lists.keys()), list(lists.values())) :
 		found = False
 		for g in Group.Groupes :
 			if len(rules.intersection( g.rules)) != 0 :
-				print("f", end=' ')
 				g.addFL(fl, rules)
 				found = True
 		if not found :
 			Group.Groupes.append(Group())
 			Group.Groupes[-1].addFL(fl, rules)
+	print(len(Group.Groupes[0].rules), end=' ')
 
 
 print()
 
 for g in Group.Groupes :
 	print(g.fls)
+	print(len(g.rules))
 	print('\n')

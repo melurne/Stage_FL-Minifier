@@ -78,6 +78,8 @@ for i, fli in enumerate(lists.values()) :
 # for i in range(len(intersections)) :
 # 	print([len(intersections[i][j]) for j in range(len(intersections[i]))])
 
+print(list(lists.keys())[0])
+print(len(list(lists.values())[0]))
 
 print(list(lists.keys()))
 for i in range(len(intersections)) :

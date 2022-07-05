@@ -41,3 +41,16 @@ We can make a simple API request to the server to get the result simply using th
 	- return `List<FL> Detected`
 - POST `resultat/*Cookie*`
 	- resultats -> db
+
+
+---
+
+### Problem
+
+I used the dataset used by the webpage (the one available here : [testdata](https://gitlab.inria.fr/nmehanna/filterlistsrules/-/raw/master/data/output/network_rules.csv))
+
+Making a LUT for the entire set of lists would be impossible (it would have to be 2^288 lines long to account for every possibility)
+
+=> I tried reducing the amount of lists to check all at once
+- First by removing lists which only had unique tests (only about 30 in the dataset) 
+- Second by trying to seperate the tests into as many non overlapping sets as possible though my algorithm found no such set and instead spits out the entire set of lists as the only possibility
