@@ -16,7 +16,7 @@ for i, line in enumerate(lines[1:-1]) :
 
 	universe.append(test)
 
-	individualIntersections.add(fls)
+	#individualIntersections.add(fls)
 
 	for fl in fls.split("|") :
 		if fl not in lists.keys() :
@@ -24,7 +24,7 @@ for i, line in enumerate(lines[1:-1]) :
 		else :
 			lists[fl].add(test)
 
-print(len(individualIntersections))
+#print(len(individualIntersections))
 
 #print([len(fl) for fl in lists.values()])
 todel = []

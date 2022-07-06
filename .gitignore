@@ -4,6 +4,10 @@
 
 tmp/*
 
+Resources/filterLists/*
+TestLUT/lists/*
+TestLUT/uncommentedLists/*
+
 Rapport/rapport/*.log
 Rapport/rapport/*.fls
 Rapport/rapport/*.ilg
