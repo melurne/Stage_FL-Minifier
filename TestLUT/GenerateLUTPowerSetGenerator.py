@@ -35,8 +35,8 @@ def powerset(seq):
             yield item
 
 def fetchLists() :
-	csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.csv"
-
+	# csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.csv"
+	csvPath = "./network_rules.csv"
 	universe = []
 	lists = dict({})
 	individualIntersections = set({})
