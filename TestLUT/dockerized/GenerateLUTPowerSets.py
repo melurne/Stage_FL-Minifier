@@ -108,7 +108,7 @@ def decompose(lists_dict) :
 	unused = {key: value for key, value in lists_dict.items()}
 	subsets = []
 
-	for i in (3, 4) :
+	for i in [3] :
 		print("------------", i)
 		print("Getting powerset")
 		valids = testParts(lists_dict, generateParts(unused, i))
