@@ -1,6 +1,16 @@
 import random
 from itertools import combinations
 
+
+def combinations_by_subset(seq, r):
+	if r:
+		for i in xrange(r - 1, len(seq)):
+			for cl in (list(c) for c in combinations_by_subset(seq[:i], r - 1)):
+				cl.append(seq[i])
+				yield tuple(cl)
+	else:
+		yield tuple()
+
 def fetchLists() :
 	csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.csv"
 

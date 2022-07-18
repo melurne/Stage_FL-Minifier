@@ -1,0 +1,10 @@
+version: "3"
+services:
+  lutgenerator:
+    tty: true
+    container_name: lutgenerator
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./results:/usr/generator/results
