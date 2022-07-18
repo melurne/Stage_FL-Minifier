@@ -9,10 +9,18 @@ def generator(seq, r):
 	else:
 		yield tuple()
 
+# def generateParts(lists_dict, n) :
+# 	parts = xuniqueCombinations(list(lists_dict.keys()), n)
+# 	for subset in parts :
+# 		yield {key: value for key, value in lists_dict.items() if key in subset}
+
 def generateParts(lists_dict, n) :
-	parts = xuniqueCombinations(list(lists_dict.keys()), n)
-	for subset in parts :
+	for subset in uniqueCombinations(list(lists_dict.keys()), n) :
 		yield {key: value for key, value in lists_dict.items() if key in subset}
+
+def uniqueCombinations(set, n) :
+	for s in combinations(s, n) :
+		yield s
 
 def xuniqueCombinations(items, n):
     if n==0: 
