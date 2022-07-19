@@ -92,7 +92,7 @@ def testParts(lists_dict, parts) :
 	for part in parts :
 		print(i)
 		if valids != [] and set(part).intersection(*valids) != set() :
-			print(valids)
+			# print(valids)
 			continue
 		if validateSubset(lists_dict, part) :
 			valids.append(part)
