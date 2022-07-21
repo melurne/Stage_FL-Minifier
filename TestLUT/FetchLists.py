@@ -24,8 +24,11 @@ for i, line in enumerate(lines[1:-1]) :
 		else :
 			lists[fl].add(test)
 
+
+
+
 # print(list(lists.keys()))
 
-for fl in lists.keys() :
-	if os.system("cp ../Resources/filterLists/{0}/{0}.txt lists/".format(fl.replace("(", "\\(").replace(")", "\\)").replace("&", "\\&").replace("'", ""))) != 0 :
-		print(fl)
+# for fl in lists.keys() :
+# 	if os.system("cp ../Resources/filterLists/{0}/{0}.txt lists/".format(fl.replace("(", "\\(").replace(")", "\\)").replace("&", "\\&").replace("'", ""))) != 0 :
+# 		print(fl)
