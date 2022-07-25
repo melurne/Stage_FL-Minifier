@@ -1,36 +1,10 @@
 from itertools import combinations
+import multiprocessing as mp
 import time
 
-def fetchLists2() :
-	# csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.csv"
-	csvPath = "./network_rules.csv"
-	universe = []
-	lists = dict({})
-	individualIntersections = set({})
-
-	with open(csvPath, "r") as f :
-		lines = f.readlines();
-
-	for i, line in enumerate(lines[1:-1]) :
-		#print(i)
-		fls = line.split("\"")[-2]
-		test = line.split("|")[1]
-
-		universe.append(i)
-
-		#individualIntersections.add(fls)
-
-		for fl in fls.split("|") :
-			if fl not in lists.keys() :
-				lists[fl] = {i}
-			else :
-				lists[fl].add(i)
-
-	return universe, lists
-
 def fetchLists() :
-	# csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.csv"
-	csvPath = "./network_rules.csv"
+	csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.csv"
+	# csvPath = "./network_rules.csv"
 	universe = []
 	lists = dict({})
 	individualIntersections = set({})
@@ -90,53 +64,53 @@ def validateSubset(lists_dict, subset_candidate) :
 	else :
 		return False
 
-def testParts(lists_dict, unused, n) :
-	subsets = []
-	generator = generateParts(unused, n)
-	i = 0
-	for part in generator :
-		# print(i, end="\r")
-		# i += 1
-		if validateSubset(lists_dict, part) :
-			subsets.append(part)
-			for l in part.keys():
-				del[unused[l]]
-			generator = generateParts(unused, n)
+def run(part) :
+	global lists_dict
+	# global gen
+	global unused
+	global subsets
+	# global progress
 
-	return subsets
+	# print(part)
+	# progress.value += 1
+	# print(progress.value, end='\r')
+	if validateSubset(lists_dict, part) :
+		subsets.append(part)
+		for l in part.keys():
+			if l in unused :
+				del[unused[l]]
+
+
+def testParts(lists_dict, n) :
+	# global gen
+	global unused
+	subsets = []
+	gen = generateParts(unused, n)
+	i = 0
+	with mp.Pool(processes = 3) as pool :
+		start = time.time()
+		pool.map(run, gen)
+		end = time.time()
+		print('time = {}'.format(end-start))
 
 def decompose(lists_dict) :
-	unused = {key: value for key, value in lists_dict.items()}
-	subsets = []
 	for i in [1, 2, 3] :
 		print("------------------", i)
-		valids = testParts(lists_dict, unused, i)
-		for p in valids :
-			# for l in p.keys() :
-			# 	del[unused[l]]
-			subsets.append(p)
-
-	subsets.append(unused)
-	return subsets
-
-n = 11
+		testParts(lists_dict, i)
 
 universe, lists_dict = fetchLists()
 
-# print(createValidSubset(lists_dict, n, lists_dict))
-# print(lists_dict)
-start = time.time()
-subsets = decompose(lists_dict)
-end = time.time()
+with mp.Manager() as manager :
+	# gen = manager.dict()
+	subsets = manager.list([])
+	unused = manager.dict({key: value for key, value in lists_dict.items()})
+	progress = mp.Value('i', 0)
 
-for s in subsets :
-	print(len(list(s.keys())))
-print('time = {}'.format(end-start))
-# print(lists_dict)
-
-with open("testRunParts3.txt", "w+") as f :
+	decompose(lists_dict)
 	for s in subsets :
-		f.write("\n")
-		for l, rules in s.items() :
-			f.write("{0} : {1} - {2}\n".format(l, rules, "True" if len(rules) < len(lists_dict.values()) else "False"))
-
+		print(len(list(s.keys())))
+	with open("testRunParts3.txt", "w+") as f :
+		for s in subsets :
+			f.write("\n")
+			for l, rules in s.items() :
+				f.write("{0} : {1} - {2}\n".format(l, rules, "True" if len(rules) < len(lists_dict.values()) else "False"))

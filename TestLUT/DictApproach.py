@@ -2,7 +2,10 @@ from itertools import *
 import sys
 import random
 import json
+import pickle
+import time
 import numpy as np
+import matplotlib.pyplot as plt
 
 import bitarray
 
@@ -30,8 +33,8 @@ class BoolArray(object):
     return hash(self.arr)
 
 def fetchLists() :
-	# csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.csv"
-	csvPath = "./network_rules.csv"
+	csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.csv"
+	# csvPath = "./network_rules.csv"
 	universe = []
 	lists = dict({})
 	individualIntersections = set({})
@@ -84,29 +87,28 @@ def getKey(val, lists_dict) :
 	return BoolArray(np.array(val)).__hash__()
 
 n_rules = 12422
-n_lists = 20
+# n_lists = 15
 
-universe = [i for i in range(n_rules)]
+universe, fullLists = fetchLists()
 
-lists_dict = {'L{}'.format(i): set(random.sample(universe, random.randrange(0, n_rules))) for i in range(n_lists)}
-lists_indexes = {'L{}'.format(i): i for i in range(n_lists)}
+data = []
+for n_lists in range(6, 20) :
+	print("------------------", n_lists)
+	lists_dict = {key: {rule for rule in fullLists[key]} for key in random.sample(list(fullLists.keys()), n_lists)}
+	lists_indexes = {key: i for i, key in enumerate(list(lists_dict.keys()))}
 
-# universe = [i for i in range(8)]
+	start = time.time()
+	lookuptable = {getKey(val, lists_dict) : val for val in generateValues(lists_indexes)}
+	end = time.time()
 
-# lists_dict = {	
-# 	'L1': {0, 1, 3}, 
-# 	'L2': {2, 3, 4},
-# 	'L3': {0, 5, 6, 7},
-# 	'L4': {1, 3}
-# }
-# lists_indexes = {
-# 	'L1' : 0,
-# 	'L2' : 1,
-# 	'L3' : 2,
-# 	'L4' : 3
-# }
-# memShrink(val)
-lookuptable = {getKey(val, lists_dict) : val for val in generateValues(lists_indexes)}
-# print(lookuptable)
-print(sys.getsizeof(json.dumps(lookuptable)))
-print(len(lookuptable))
+	print(sys.getsizeof(pickle.dumps(lookuptable)))
+	print(len(lookuptable))
+	print(end-start)
+	data.append((sys.getsizeof(pickle.dumps(lookuptable))/len(lookuptable), (end-start)/len(lookuptable)))
+fig, (ax1, ax2) = plt.subplots(2)
+ax1.plot([i for i in range(1, len(data)+1)], [data[i][0] for i in range(len(data))], "r+")
+ax2.plot([i for i in range(1, len(data)+1)], [data[i][1] for i in range(len(data))], "b+")
+plt.show()
+
+print([data[i][0] for i in range(len(data))]) # 28 + 6.25*n2**2 bytes
+print([data[i][1] for i in range(len(data))])

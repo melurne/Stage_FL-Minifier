@@ -1,0 +1,372 @@
+
+EasyList_Brasil : {12306} - True
+
+ABP_Japanese_Filters : {12398} - True
+
+Tofu_Filter : {12356} - True
+
+Eesti_Custom_Sites_Filter : {12249} - True
+
+ABP_X_Files : {12417} - True
+
+Toshiya's_Filter_List_-_Experimental : {12324} - True
+
+Egg_Filter : {12331} - True
+
+ADP_Mobile_Filter : {12264} - True
+
+VeleSila's_Kafan_List : {12236} - True
+
+AdBlockNeeEoo : {12316} - True
+
+YousList : {12404} - True
+
+FSMF_2 : {12412} - True
+
+AdGuard_Base_Filter_(uBlock_Origin) : {12372} - True
+
+AdGuard_Mobile_Ads_Filter_(uBlock_Origin) : {12257} - True
+
+Yuki's_uBlock_Japanese_filters : {12410} - True
+
+Fanboy's_IsraelList : {12420} - True
+
+AdGuard_Russian_Filter_(uBlock_Origin) : {12308} - True
+
+gmbkslist_(ABP) : {12397} - True
+
+Fanboy's_Ultimate_List : {12285} - True
+
+AdGuard_Tracking_Protection_Filter_(uBlock_Origin) : {12252} - True
+
+halflife's_AdFilters : {12408} - True
+
+G&J_AdBlock : {12318} - True
+
+Ad_Rules_for_XBrowser : {12421} - True
+
+jCleanList : {12267} - True
+
+JAB_Creations'_Adblock_Plus_Filter_Subscription : {12333} - True
+
+Adblock_Filters_by_Gurud_ee : {12250} - True
+
+Korean_Adblock_List : {12251} - True
+
+uBlock_Indo : {12346} - True
+
+Adblock_Korea : {12389} - True
+
+L33T's_All-In-One_Blocklist_by_L33Tech : {12303} - True
+
+ADT_ChinaList : {12254} - True
+
+Macedonian_adBlock_Filters : {12278} - True
+
+Adblocking_Open_Filter_JP : {12418} - True
+
+AdGuard_Chinese_Filter_(uBlock_Origin) : {12350} - True
+
+Mobile_ad_filtering_supplementary_rules_-_移动广告过滤补充规则 : {12396} - True
+
+Mochi_Filter : {12322} - True
+
+Adversity : {12305} - True
+
+Snaevar87's_Icelandic_filter : {12369} - True
+
+Mochi_Filter_Extended : {12374} - True
+
+ROList : {12359} - True
+
+NLblock : {12344} - True
+
+All-in-One_Customized_Adblock_List : {12348} - True
+
+uBOPa : {12409} - True
+
+PLgeneral : {12268} - True
+
+BSTF_(Babak's_Strict_Trackers_Filterlist) : {12294} - True
+
+QuarkList : {12362} - True
+
+Master_Inspire : {12283} - True
+
+Better_content_blocking_rules : {12310} - True
+
+ROad-Block : {12386} - True
+
+Mayve's_Private_Adblock_Filters : {12270} - True
+
+Japanese_Site_Adblock_Filter : {12241} - True
+
+BlockConvert_(Adblockers) : {12296} - True
+
+Strawberry_Filter : {12286} - True
+
+Spies_Dislike_Us_Having_Privacy : {12401} - True
+
+Columbia_Analytica : {12276} - True
+
+ajnasz's_list : {12337} - True
+
+Corset : {12414} - True
+
+Andromeda_uBlock_List : {12271} - True
+
+Cybo's_Hosts : {12403} - True
+
+ABPVN_List : {12301} - True
+
+Czech_Filters_for_AdBlock : {12242} - True
+
+RU_AdList:_BitBlock : {12351} - True
+
+Fanboy's_Indian : {12290} - True
+
+Spyware_Filter_Block_List : {12256} - True
+
+uAssets_Unbreak : {12339} - True
+
+Spyware_Filter_Scrip : {12387} - True
+
+Polish_Privacy_Filters : {12326} - True
+
+RU_AdList : {12244} - True
+
+urlhaus-filter : {6468, 11017, 6123, 12395, 9294, 12110, 3057, 8371, 2744, 4442, 1855} - True
+
+AdGuard_French_Filter_(uBlock_Origin) : {12365} - True
+
+AdBlockFarsi : {12287} - True
+
+Liste_FR : {12247} - True
+
+Adblock_Persian_List : {12419} - True
+
+Adblock_Iran : {12402} - True
+
+AdGuard_Japanese_Filter_(uBlock_Origin) : {12273} - True
+
+ROList2 : {12354} - True
+
+Fanboy's_Japanese : {12343} - True
+
+whtsky's_rules : {12311} - True
+
+Fanboy's_Polish : {12284} - True
+
+KoreanList : {12304} - True
+
+Adversity_-_Extreme_Measures : {12391} - True
+
+Grayware_Filterlist : {12345} - True
+
+RU_AdList:_Counters : {12347} - True
+
+Liste_AR : {12388} - True
+
+List-KR_(andromedarabbit) : {12392} - True
+
+AdGuard_Annoyances_Filter_(uBlock_Origin) : {12329} - True
+
+Mochi_Filter_2gun : {12327} - True
+
+Thai_Ads_Filters : {12330} - True
+
+Xpi_Yahoo_Complete_Filters : {12300} - True
+
+TamilFriends_List : {12238} - True
+
+Greek_AdBlock_Filter : {12320} - True
+
+Polish_Annoyance_Filters : {12309} - True
+
+Schack's_Adblock_Plus_List : {12299} - True
+
+Nano_Defender_Integration : {12307} - True
+
+hufilter : {12332} - True
+
+Yuki's_uBlock_Japanese_filters_-_Annoyances : {12411} - True
+
+EasyList_Czech_and_Slovak : {12240} - True
+
+Slovenian_List : {12302} - True
+
+AdGuard_Turkish_Filter_(uBlock_Origin) : {12342} - True
+
+AdGuard_Social_Media_Filter_(uBlock_Origin) : {12272} - True
+
+Fanboy's_Korean : {12399} - True
+
+sipp11's_Thai_Ad_Filters : {12313} - True
+
+Adversity_-_Antisocial : {12274} - True
+
+Hexxium_Creations_Threat_List : {12239} - True
+
+Anti-paywall_filters : {12253} - True
+
+Ayucat_Powerful_List : {12266} - True
+
+uBlock_privacy : {12358} - True
+
+AdGuard_Spanish_Portuguese_Filter_(uBlock_Origin) : {12317} - True
+
+Fanboy's_Spanish_Portuguese : {12312} - True
+
+Latvian_List : {12289} - True
+
+Liste_DZ : {12259} - True
+
+Fanboy's_Swedish : {12357} - True
+
+Fanboy's_Turkish : {12281} - True
+
+Adblock_List_for_Finland : {12340} - True
+
+EasyList_Polish : {12323} - True
+
+Yuki's_uBlock_Japanese_filters_-_Paranoid : {12315} - True
+
+Web_Annoyances_Ultralist_-_Social_Filters : {12237} - True
+
+Adblock_Polska : {12255} - True
+
+Spam404 : {12384} - True
+
+Anti-'Awful_comments'_List : {12406} - True
+
+EasyList_Lithuania : {12355} - True
+
+Adblock_Sri_Lanka : {12334} - True
+
+Filters_by_hant0508 : {12277} - True
+
+Maltrail_-_MagentoCore : {12248} - True
+
+Birdie_Filter : {12394} - True
+
+ThaiAntiForceLike : {12352} - True
+
+Fanboy's_Anti-Comment_List : {12293} - True
+
+infinitytec's_blocklists_-_Adfilters : {12280} - True
+
+EasyList_Italy : {12379} - True
+
+Polish_Anti_Adblock_Filters : {12269} - True
+
+EasyList_Hebrew : {12407} - True
+
+Fanboy's_Vietnamese : {12385} - True
+
+popover-blocklist : {12368} - True
+
+Chat_Annoyances_Filter_List : {12373} - True
+
+ABPindo : {12382} - True
+
+Schuzak's_Universal_Filter : {12297} - True
+
+X_Files:_HWS_Harmful_WebSites : {12370} - True
+
+AdBlockID : {12383} - True
+
+EasyList_Spanish : {12279} - True
+
+Frellwit's_Swedish_Filter : {12295} - True
+
+uAssets_Annoyances : {12243} - True
+
+AdGuard_German_Filter_(uBlock_Origin) : {12360} - True
+
+Yuki's_uBlock_Japanese_filters_-_Social : {12376} - True
+
+uBlock_annoyances : {12375} - True
+
+AdGuard_Social_Media_Plus : {12325} - True
+
+EasyList_Portuguese : {12416} - True
+
+Lanik's_uBO_Filter_List : {12371} - True
+
+Bulgarian_List : {12263} - True
+
+uBlock : {12400} - True
+
+Polish_Social_Filters : {12378} - True
+
+ABP_Macedonian_List : {12364} - True
+
+Icelandic_ABP_List : {12338} - True
+
+nocomments : {12335} - True
+
+IndianList : {12265} - True
+
+AdditionalFiltersCN : {12366} - True
+
+I_Don't_Care_about_Cookies : {12361} - True
+
+lilydjwg's_rules : {12363} - True
+
+uAssets_Filters : {12380} - True
+
+Leek_Filter : {12367} - True
+
+Wiltteri : {12390} - True
+
+Polish_Anti-Annoying_Special_Supplement : {12282} - True
+
+Yuki's_Blog_Parts : {12258} - True
+
+secretsnow-adfilters : {12262} - True
+
+infinitytec's_blocklists_-_Annoyances : {12415} - True
+
+uAssets_Badware : {12275} - True
+
+Anti-'Anthro_combat-equipment_gacha_waifu'_List : {12381} - True
+
+AdGuard_Dutch_Filter_(uBlock_Origin) : {12341} - True
+
+Anti-FіМ_List : {12393} - True
+
+Stop_Autoplay_on_Video_Sites : {12377} - True
+
+Additional_Adblock_Rules : {12328} - True
+
+Adblock_List_for_Albania : {12246} - True
+
+Raajje-AdList : {12260} - True
+
+Anti-'Custom_cursors'_List : {12336} - True
+
+Prebake_Obtrusive : {12245} - True
+
+uBlock_AK_Filter_Rules : {12321} - True
+
+Browse_Websites_Without_Logging_In : {12288} - True
+
+I_don't_care_about_newsletters : {12298} - True
+
+I_Don't_Care_About_Emojis : {12413} - True
+
+Annoyance_List_for_Finland : {12261} - True
+
+phishing-filter : {12314} - True
+
+KAD_-_Scams : {12405} - True
+
+Anti-Pepe_List : {12319} - True
+
+Anti-'Abuse_porn'_List : {12291} - True
+
+Haykam's_MMO_List : {12353} - True
+
+Wikia:_Pure_Browsing_Experience : {12292} - True
+
+Banki_ru_Plus_Adblock_List : {12349} - True
