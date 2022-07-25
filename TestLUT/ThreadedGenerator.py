@@ -1,5 +1,7 @@
 from itertools import combinations
 import multiprocessing as mp
+from threading import Thread
+from queue import Queue
 import time
 
 def fetchLists() :
@@ -64,55 +66,71 @@ def validateSubset(lists_dict, subset_candidate) :
 	else :
 		return False
 
-def run(part) :
-	global lists_dict
-	# global gen
-	global unused
-	global subsets
-	# global progress
 
-	# print(part)
-	# progress.value += 1
-	# print(progress.value, end='\r')
-	if validateSubset(lists_dict, part) :
-		subsets.append(part)
+def worker(GenQ, ResQ) :
+	_ , lists_dict = fetchLists()
+	while True :
+		part = GenQ.get()
+
+		if part == 'close' :
+			return
+
+		if validateSubset(lists_dict, part) :
+			ResQ.put(part)
+
+def Producer(GenQ, unused, n) :
+	for part in generateParts(unused, n) :
+		GenQ.put(part)
+	return
+
+def updator(ResQ, unused, subsets) :
+	while True :
+		part = ResQ.get()
+		if part == 'close' :
+			return
 		for l in part.keys():
 			if l in unused :
 				del[unused[l]]
-				# print(len(unused))
-
-
-def testParts(lists_dict, n) :
-	# global gen
-	global unused
-	subsets = []
-	gen = generateParts(unused, n)
-	i = 0
-	with mp.Pool(processes = 3) as pool :
-		start = time.time()
-		for i in pool.imap(run, gen) :
-			pass
-		end = time.time()
-		print('time = {}'.format(end-start))
-
-def decompose(lists_dict) :
-	for i in [1, 2, 3] :
-		print("------------------", i)
-		testParts(lists_dict, i)
-
-universe, lists_dict = fetchLists()
+		if len(part) > 0 :
+			subsets.append(part)
 
 with mp.Manager() as manager :
-	# gen = manager.dict()
+	_ , lists_dict = fetchLists()
+
 	subsets = manager.list([])
 	unused = manager.dict({key: value for key, value in lists_dict.items()})
-	progress = mp.Value('i', 0)
 
-	decompose(lists_dict)
+	GenQ = mp.Queue()
+	ResQ = mp.Queue()
+
+	W1 = mp.Process(target=worker, args=(GenQ, ResQ))
+	W2 = mp.Process(target=worker, args=(GenQ, ResQ))
+	W3 = mp.Process(target=worker, args=(GenQ, ResQ))
+		
+	W1.start()
+	W2.start()
+	W3.start()
+
+	T_updator = Thread(target=updator, args=(ResQ, unused, subsets))
+	T_updator.start()
+
+	for i in [1, 2] :
+		print('-----------------', i)
+		T_producer = Thread(target=Producer, args=(GenQ, unused, i))
+		start = time.time()
+		T_producer.start()
+		T_producer.join()
+		end = time.time()
+		print('time = ', end-start)
+
 	for s in subsets :
-		print(len(list(s.keys())))
+		print(len(list(s.keys())), end=' ')
 	with open("testRunParts3.txt", "w+") as f :
 		for s in subsets :
 			f.write("\n")
 			for l, rules in s.items() :
 				f.write("{0} : {1} - {2}\n".format(l, rules, "True" if len(rules) < len(lists_dict.values()) else "False"))
+
+	for i in range(4) :
+		GenQ.put('close')
+	ResQ.put('close')
