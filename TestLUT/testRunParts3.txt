@@ -1,21 +1,21 @@
 
-ABP_X_Files : {12417} - True
-
-AdBlockNeeEoo : {12316} - True
-
 ABP_Japanese_Filters : {12398} - True
 
-ADP_Mobile_Filter : {12264} - True
+ABP_X_Files : {12417} - True
 
 AdGuard_Mobile_Ads_Filter_(uBlock_Origin) : {12257} - True
 
 AdGuard_Tracking_Protection_Filter_(uBlock_Origin) : {12252} - True
 
+ADP_Mobile_Filter : {12264} - True
+
+AdBlockNeeEoo : {12316} - True
+
 AdGuard_Base_Filter_(uBlock_Origin) : {12372} - True
 
-Ad_Rules_for_XBrowser : {12421} - True
-
 AdGuard_Russian_Filter_(uBlock_Origin) : {12308} - True
+
+Ad_Rules_for_XBrowser : {12421} - True
 
 Adblock_Filters_by_Gurud_ee : {12250} - True
 

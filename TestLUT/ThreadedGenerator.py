@@ -78,10 +78,14 @@ def worker(GenQ, ResQ) :
 		if validateSubset(lists_dict, part) :
 			ResQ.put(part)
 
-def Producer(GenQ, unused, n) :
+def Producer_old(GenQ, unused, n) :
 	for part in generateParts(unused, n) :
 		GenQ.put(part)
 	return
+
+def Producer(part) :
+	global GenQ
+	GenQ.put(part)
 
 def updator(ResQ, unused, subsets) :
 	while True :
@@ -105,23 +109,23 @@ with mp.Manager() as manager :
 
 	W1 = mp.Process(target=worker, args=(GenQ, ResQ))
 	W2 = mp.Process(target=worker, args=(GenQ, ResQ))
-	W3 = mp.Process(target=worker, args=(GenQ, ResQ))
+	# W3 = mp.Process(target=worker, args=(GenQ, ResQ))
 		
 	W1.start()
 	W2.start()
-	W3.start()
+	# W3.start()
 
 	T_updator = Thread(target=updator, args=(ResQ, unused, subsets))
 	T_updator.start()
 
 	for i in [1, 2] :
 		print('-----------------', i)
-		T_producer = Thread(target=Producer, args=(GenQ, unused, i))
-		start = time.time()
-		T_producer.start()
-		T_producer.join()
-		end = time.time()
-		print('time = ', end-start)
+		with mp.Pool(processes = 2) as pool :
+			start = time.time()
+			for _ in pool.imap(Producer, generateParts(unused, i)) :
+				pass
+			end = time.time()
+			print('time = ', end-start)
 
 	for s in subsets :
 		print(len(list(s.keys())), end=' ')
