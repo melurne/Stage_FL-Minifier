@@ -1,7 +1,9 @@
 from itertools import combinations
 import multiprocessing as mp
+import asyncio
 from threading import Thread
 from queue import Queue
+import itertools
 import time
 
 def fetchLists() :
@@ -66,30 +68,50 @@ def validateSubset(lists_dict, subset_candidate) :
 	else :
 		return False
 
-
-def worker(GenQ, ResQ) :
+async def worker(GenQ, ResQ) :
 	_ , lists_dict = fetchLists()
 	while True :
-		part = GenQ.get()
+		part = await GenQ.get()
 
 		if part == 'close' :
+			await ResQ.put('close')
 			return
 
-		if validateSubset(lists_dict, part) :
-			ResQ.put(part)
 
-def Producer_old(GenQ, unused, n) :
-	for part in generateParts(unused, n) :
-		GenQ.put(part)
+		if validateSubset(lists_dict, part) :
+			await ResQ.put(part)
+
+async def Producer(GenQ, unused, n) :
+	i = 0
+	lists = {key: value for key, value in unused.items()}
+	for part in generateParts(lists, n) :
+		print(i, end='\r')
+		i+=1
+		try :
+			GenQ.put_nowait(part)
+		except asyncio.QueueFull :
+			await GenQ.put(part)
+	for _ in range(4) :
+		await GenQ.put('close')
 	return
 
-def Producer(part) :
+async def producerTee(GenQ, iterator) :
+	i = 0
+	for part in iterator :
+		print(i, end='\r')
+		i+=1
+		await GenQ.put(part)
+	for _ in range(4) :
+		await GenQ.put('close')
+	return
+
+async def Producer_old(part) :
 	global GenQ
 	GenQ.put(part)
 
-def updator(ResQ, unused, subsets) :
+async def updator(ResQ, unused, subsets) :
 	while True :
-		part = ResQ.get()
+		part = await ResQ.get()
 		if part == 'close' :
 			return
 		for l in part.keys():
@@ -98,34 +120,43 @@ def updator(ResQ, unused, subsets) :
 		if len(part) > 0 :
 			subsets.append(part)
 
+async def main(unused, subsets, i) :
+	GenQ = asyncio.Queue(500)
+	ResQ = asyncio.Queue(200)
+	
+	# it1, it2 = itertools.tee(generateParts(unused, i), 2)
+	# print(type(it1))
+	# prod1 = asyncio.create_task(producerTee(GenQ1, it1))
+	# prod2 = asyncio.create_task(producerTee(GenQ2, it2))
+	prod = asyncio.create_task(Producer(GenQ, unused, i))
+	upda = asyncio.create_task(updator(ResQ, unused, subsets))
+
+	W1 = asyncio.create_task(worker(GenQ, ResQ))
+	W2 = asyncio.create_task(worker(GenQ, ResQ))
+	W3 = asyncio.create_task(worker(GenQ, ResQ))
+	W4 = asyncio.create_task(worker(GenQ, ResQ))
+
+	await prod
+	# await prod1
+	# await prod2
+	await upda
+	await W1
+	await W2
+	await W3
+	await W4
+
 with mp.Manager() as manager :
 	_ , lists_dict = fetchLists()
 
 	subsets = manager.list([])
 	unused = manager.dict({key: value for key, value in lists_dict.items()})
 
-	GenQ = mp.Queue()
-	ResQ = mp.Queue()
-
-	W1 = mp.Process(target=worker, args=(GenQ, ResQ))
-	W2 = mp.Process(target=worker, args=(GenQ, ResQ))
-	# W3 = mp.Process(target=worker, args=(GenQ, ResQ))
-		
-	W1.start()
-	W2.start()
-	# W3.start()
-
-	T_updator = Thread(target=updator, args=(ResQ, unused, subsets))
-	T_updator.start()
-
 	for i in [1, 2] :
 		print('-----------------', i)
-		with mp.Pool(processes = 2) as pool :
-			start = time.time()
-			for _ in pool.imap(Producer, generateParts(unused, i)) :
-				pass
-			end = time.time()
-			print('time = ', end-start)
+		start = time.time()
+		asyncio.run(main(unused, subsets, i))
+		end = time.time()
+		print('time = ', end-start)
 
 	for s in subsets :
 		print(len(list(s.keys())), end=' ')
