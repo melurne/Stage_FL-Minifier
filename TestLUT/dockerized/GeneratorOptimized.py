@@ -108,7 +108,7 @@ def testParts(lists_dict, unused, n) :
 def decompose(lists_dict) :
 	unused = {key: value for key, value in lists_dict.items()}
 	subsets = []
-	for i in [1, 2, 3] :
+	for i in [1, 5] :
 		print("------------------", i)
 		valids = testParts(lists_dict, unused, i)
 		for p in valids :

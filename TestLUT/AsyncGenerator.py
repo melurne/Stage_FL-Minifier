@@ -1,11 +1,7 @@
 from itertools import combinations
 import multiprocessing as mp
 import asyncio
-from threading import Thread
-from queue import Queue
-import itertools
 import time
-import asyncio_pipe
 
 def fetchLists() :
 	csvPath = "/home/maxence/StageInria/Stage_FL-Minifier/Resources/network_rules.csv"
@@ -127,26 +123,26 @@ async def main(unused, subsets, i) :
 	W1 = mp.Process(target=worker, args=(GenQ, ResQ))
 	W2 = mp.Process(target=worker, args=(GenQ, ResQ))
 	W3 = mp.Process(target=worker, args=(GenQ, ResQ))
-	# W4 = mp.Process(worker, (GenQ, ResQ))
+	W4 = mp.Process(target=worker, args=(GenQ, ResQ))
+	W5 = mp.Process(target=worker, args=(GenQ, ResQ))
+
+
 	W1.start()
 	W2.start()
 	W3.start()
-	await prod
-	# print('prod exited')
-	# W1.terminate()
-	# W2.terminate()
-	# W3.terminate()
-	# await prod1
-	# await prod2
-	await upda
-	# print('update')
+	W4.start()
+	W5.start()
 
-	# W4.start()
+	await prod
+
+	await upda
+
 
 	W1.join()
 	W2.join()
 	W3.join()
-	# W4.join()
+	W4.join()
+	W5.join()
 
 
 
@@ -160,7 +156,7 @@ with mp.Manager() as manager :
 
 
 
-	for i in [1, 2] :
+	for i in [1, 5] :
 		print('-----------------', i)
 		start = time.time()
 		asyncio.run(main(unused, subsets, i))
