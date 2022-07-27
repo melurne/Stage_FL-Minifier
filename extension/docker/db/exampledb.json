@@ -1,0 +1,14 @@
+{
+	"userID": "fsefsrfiseygdawennf",
+	"diffs" : {
+		"2021-01-20T15" : {
+			"+" : ["urlhaus_filter", "uBlock_privacy"],
+			"-" : []
+		},
+		"2021-04-23T10" : {
+			"+" : ["uBlock_annoyances"],
+			"-" : ["urlhaus_filter"]
+		}
+	},
+    "current" : ["uBlock_privacy", "uBlock_annoyances"]
+}
