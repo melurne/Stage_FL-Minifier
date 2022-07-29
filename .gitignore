@@ -1,5 +1,7 @@
 *.swp
 */node_modules/*
+extension/docker/api/node_modules/*
+extension/docker/api/package-lock.json
 */package-lock.json
 
 tmp/*
