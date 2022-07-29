@@ -1,6 +1,10 @@
 const express = require("express");
+const nodePickle = require('node-pickle');
 const cors = require("cors");
 const MongoClient = require('mongodb').MongoClient;
+
+const redis = require('redis');
+redis_client = redis.createClient(6379, "redis");
 
 var app = express();
 app.use(cors());
@@ -18,6 +22,10 @@ MongoClient.connect(mongourl, (err, client) => {
     db = client.db(dbname);
 });
 
+redis_client.on('connect', () => {
+    console.log("Succesfully connected to Redis");
+});
+
 app.get('/tests', (req, res) => {
     db.collection("testElements").find({}).toArray((err, docs) =>{
         if (err) {
@@ -25,6 +33,17 @@ app.get('/tests', (req, res) => {
             throw err
         }
         res.status(200).json(docs)
+    });
+});
+
+app.post('/result', (req, res) => {
+    nodePickle.dump(req.body).then(data => {
+        redis_client.publish(
+            "Queue", 
+            data
+        ).then(() => {
+            res.status(200);
+        });
     });
 });
 

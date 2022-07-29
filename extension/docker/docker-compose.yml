@@ -43,6 +43,7 @@ services:
       - backend
     links:
       - mongo:database
+      - redis:redis
 
 networks:
   backend: 
