@@ -1,10 +1,10 @@
 const express = require("express");
-const nodePickle = require('node-pickle');
+const nodePickle = require("pickle");
 const cors = require("cors");
 const MongoClient = require('mongodb').MongoClient;
 
 const redis = require('redis');
-redis_client = redis.createClient(6379, "redis");
+redis_client = redis.createClient({url:"redis://queue:6379"});
 
 var app = express();
 app.use(cors());
@@ -22,7 +22,7 @@ MongoClient.connect(mongourl, (err, client) => {
     db = client.db(dbname);
 });
 
-redis_client.on('connect', () => {
+redis_client.connect().then(()=>{
     console.log("Succesfully connected to Redis");
 });
 
@@ -37,7 +37,7 @@ app.get('/tests', (req, res) => {
 });
 
 app.post('/result', (req, res) => {
-    nodePickle.dump(req.body).then(data => {
+    nodePickle.dumps(req.body, data => {
         redis_client.publish(
             "Queue", 
             data
@@ -46,6 +46,8 @@ app.post('/result', (req, res) => {
         });
     });
 });
+
+
 
 app.get('/isAlive', (req, res) => {
 	res.status(200).send("Alive")
