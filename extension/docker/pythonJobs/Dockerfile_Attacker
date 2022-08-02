@@ -1,0 +1,15 @@
+FROM rust:latest
+
+RUN mkdir -p /usr/jobs
+WORKDIR /usr/jobs
+
+COPY . .
+
+RUN apt-get install python3 curl
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN python3 get-pip.py && rm get-pip.py
+
+RUN python3 -m pip install --upgrade pip
+RUN pip3 install -r requirements.txt
+
+CMD (jupyter notebook --ip=0.0.0.0 --port=3415 &) && papermill PerformAttack.ipynb outPerformAttack.ipynb

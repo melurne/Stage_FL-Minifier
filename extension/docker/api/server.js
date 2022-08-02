@@ -8,6 +8,7 @@ redis_client = redis.createClient({url:"redis://queue:6379"});
 
 var app = express();
 app.use(cors());
+app.use(express.json())
 
 mongourl = "mongodb://root:example@database:27017/"
 dbname = "test"
@@ -37,15 +38,20 @@ app.get('/tests', (req, res) => {
 });
 
 app.post('/result', (req, res) => {
-    nodePickle.dumps(req.body, data => {
+    // console.log(req.body)
+    // nodePickle.dumps(req.body, data => {
+        // pickle.loads(data, function(original) {
+        //     console.log("original:", original);
+        // });
         redis_client.publish(
             "Queue", 
-            data
+            JSON.stringify(req.body)
         ).then(() => {
-            res.status(200);
+            res.status(200).send("AK");
         });
-    });
+    // });
 });
+
 
 
 

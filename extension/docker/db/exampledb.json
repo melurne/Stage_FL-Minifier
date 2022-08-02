@@ -3,7 +3,8 @@
 	"diffs" : {
 		"2021-01-20T15" : {
 			"+" : ["urlhaus_filter", "uBlock_privacy"],
-			"-" : []
+			"-" : [],
+			"testID" : "int"
 		},
 		"2021-04-23T10" : {
 			"+" : ["uBlock_annoyances"],

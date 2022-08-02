@@ -22,6 +22,8 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    links: 
+      - mongo:mongo
     # networks:
     #   - backend
   
@@ -45,14 +47,21 @@ services:
       - mongo:database
       - redis:queue
 
-# networks:
-#   backend: 
-#     driver: bridge
+  logger:
+    tty: true
+    container_name: logger
+    build:
+      context: ./pythonJobs
+      dockerfile: ./Dockerfile_Logger
+    links:
+      - mongo:database
+      - redis:queue
   
-
-  # process-jobs:
-  #   tty: true
-  #   container_name: process-jobs
-  #   build:
-  #     context: .
-  #     dockerfile: ./Dockerfile
+  attacker:
+    tty: true
+    container_name: attacker
+    build:
+      context: ./pythonJobs
+      dockerfile: ./Dockerfile_Attacker
+    links:
+      - redis:queue
