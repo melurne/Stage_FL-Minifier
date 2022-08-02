@@ -10,7 +10,7 @@
 		{
 			"run_at": "document_start",
 			"matches": ["*://*/*"],
-			"js": ["content2.js"]
+			"js": ["content.js"]
 		}
 	],
 	"permissions": ["storage", "tabs", "scripting"],
