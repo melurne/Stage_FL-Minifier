@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     dv.innerHTML = test;
                     var elem = dv.firstChild;
                     document.body.appendChild(elem);
-                    results.push(getComputedStyle(elem, null).display == "none");
-                    document.body.removeChild(elem);
+                    setTimeout(results.push(getComputedStyle(elem, null).display == "none"), 10);
                 }
             });
         });
@@ -28,8 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 results = [];
                 for (elem of imgs) {
                     document.body.appendChild(elem);
-                    results.push(getComputedStyle(elem, null).display == "none");
-                    document.body.removeChild(elem);
+                    setTimeout(results.push(getComputedStyle(elem, null).display == "none"), 10);   
                 }
                 console.log(results); 
                 fetch("http://localhost:8080/result", {
@@ -40,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({id:"extension", results: results})
                 }).then(() => {
+                    for (id of imgs) {
+                        while ((el = document.getElementById(id.id)) != null) {
+                            document.body.removeChild(el);
+                        }
+                    }
                     console.log("Data Logged");
                 });
             });

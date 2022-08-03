@@ -52,7 +52,15 @@ app.post('/result', (req, res) => {
     // });
 });
 
-
+app.get('/current/:id', (req, res) => {
+    db.collection("users").find({userID: req.params.id}).toArray((err, docs) =>{
+        if (err) {
+            console.error(err);
+            throw err
+        }
+        res.status(200).json(docs[0].current)
+    });
+});
 
 
 app.get('/isAlive', (req, res) => {
