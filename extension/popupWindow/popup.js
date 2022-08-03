@@ -15,7 +15,9 @@ function updateLists() {
     });
 }
 
-// let but = document.getElementById("updateButton");
-// but.addEventListener("click", updateLists());
+let but = document.getElementById("history");
+but.addEventListener("click", () => {
+    chrome.tabs.create({url: "AnalyticsWindow/analytics.html"});
+});
 
-updateLists()
+updateLists();
