@@ -5,5 +5,10 @@
 
 .titleSpan {
     display: block;
+    width: 100%;
+}
+
+body {
     width: 20em;
+    height: 40em;
 }

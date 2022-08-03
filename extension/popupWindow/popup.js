@@ -15,5 +15,7 @@ function updateLists() {
     });
 }
 
-let but = document.getElementById("updateButton");
-but.addEventListener("click", updateLists());
+// let but = document.getElementById("updateButton");
+// but.addEventListener("click", updateLists());
+
+updateLists()
