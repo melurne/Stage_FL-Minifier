@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let capsule = document.createElement('div');
+    document.body.appendChild(capsule);
     setTimeout(() => {
         fetch("http://localhost:8080/tests").then((res) => {
             res.json().then(res => {
@@ -7,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     var dv = document.createElement('div');
                     dv.innerHTML = test;
                     var elem = dv.firstChild;
-                    document.body.appendChild(elem);
+                    capsule.appendChild(elem);
                     setTimeout(results.push(getComputedStyle(elem, null).display == "none"), 10);
                 }
             });
@@ -26,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 results = [];
                 for (elem of imgs) {
-                    document.body.appendChild(elem);
+                    capsule.appendChild(elem);
                     setTimeout(results.push(getComputedStyle(elem, null).display == "none"), 10);   
                 }
                 console.log(results); 
@@ -38,11 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({id:"extension", results: results})
                 }).then(() => {
-                    for (id of imgs) {
-                        while ((el = document.getElementById(id.id)) != null) {
-                            document.body.removeChild(el);
-                        }
-                    }
+                    document.body.removeChild(capsule);
                     console.log("Data Logged");
                 });
             });
