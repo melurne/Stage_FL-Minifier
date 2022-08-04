@@ -62,6 +62,27 @@ app.get('/current/:id', (req, res) => {
     });
 });
 
+app.get('/analytics/:id', (req, res) => {
+    db.collection("users").find({userID: req.params.id}).toArray((err, docs) =>{
+        if (err) {
+            console.error(err);
+            throw err
+        }
+
+        let rawData = docs[0];
+        let lastTest = rawData.current;
+
+        let diffs = [];
+
+        let dataPoints = [];
+        for (date in rawData.diffs) {
+            diffs.push([date, rawData.diffs[date]]);
+        }
+        diffs = diffs.sort((x, y) => {x[0] > y[0]}).reverse();
+
+        res.status(200).json(diffs);
+    });
+});
 
 app.get('/isAlive', (req, res) => {
 	res.status(200).send("Alive")

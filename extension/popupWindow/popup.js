@@ -18,6 +18,6 @@ function updateLists() {
 let but = document.getElementById("history");
 but.addEventListener("click", () => {
     chrome.tabs.create({url: "AnalyticsWindow/analytics.html"});
-});
+}); 
 
 updateLists();
