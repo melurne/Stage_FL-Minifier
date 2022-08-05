@@ -24,7 +24,7 @@
     width: 100%;
     padding-left: 0;
     left: 0;
-    position: absolute;
+    position: relative;
     top: 15em;
 }
 
@@ -38,7 +38,7 @@
     display: block;
 }
 
-.report>ul {
+.report>span {
     position: absolute;
     top: 0;
 }
