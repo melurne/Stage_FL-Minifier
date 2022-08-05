@@ -70,17 +70,32 @@ app.get('/analytics/:id', (req, res) => {
         }
 
         let rawData = docs[0];
-        let lastTest = rawData.current;
+        let lastTest = rawData.diffs[Object.keys(rawData.diffs)[0]]["+"];
 
-        let diffs = [];
+        let dataPoints = {};
+        dataPoints[Object.keys(rawData.diffs)[0]] = {
+            "state": Object.assign([], lastTest), 
+            "diffs": {"+": [], "-": []}
+        };
+ 
+        Object.keys(rawData.diffs).forEach((date, index) => {
+            if (index != 0) {
+                for (rm of rawData.diffs[date]["-"]) {
+                    lastTest = lastTest.filter(l => l != rm);
+                }
+                for (add of rawData.diffs[date]["+"]) {
+                    lastTest.push(add);
+                }
+                dataPoints[date] = {
+                    "state": Object.assign([], lastTest), 
+                    "diffs": Object.assign({}, rawData.diffs[date])
+                };
+            }   
+        });
 
-        let dataPoints = [];
-        for (date in rawData.diffs) {
-            diffs.push([date, rawData.diffs[date]]);
-        }
-        diffs = diffs.sort((x, y) => {x[0] > y[0]}).reverse();
 
-        res.status(200).json(diffs);
+
+        res.status(200).json(dataPoints);
     });
 });
 
