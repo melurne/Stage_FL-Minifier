@@ -93,8 +93,6 @@ app.get('/analytics/:id', (req, res) => {
             }   
         });
 
-
-
         res.status(200).json(dataPoints);
     });
 });
