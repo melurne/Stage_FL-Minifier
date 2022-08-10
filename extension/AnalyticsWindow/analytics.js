@@ -127,10 +127,10 @@ function regenerate(sorted) {
     generateReports(sorted[selected], reportsContainer);
     if (Object.keys(sorted).indexOf(selected) === 0) {
         document.getElementById('rightarrow').style.background = "#AAAAEE";
-        document.getElementById('leftarrow').style.background = "#AAAAAA";
+        document.getElementById('leftarrow').style.background = "#CCCCCC";
     }
     else if (Object.keys(sorted).indexOf(selected) === Object.keys(sorted).length -1) {
-        document.getElementById('rightarrow').style.background = "#AAAAAA";
+        document.getElementById('rightarrow').style.background = "#CCCCCC";
         document.getElementById('leftarrow').style.background = "#AAAAEE";
     }
     else {
@@ -139,21 +139,33 @@ function regenerate(sorted) {
     }
 }
 
+function shift(code) {
+    if (code === "ArrowRight") {
+        if (!(Object.keys(sorted).indexOf(selected) === Object.keys(sorted).length -1)) {
+            selected = Object.keys(sorted)[Object.keys(sorted).indexOf(selected) + 1];
+            regenerate(sorted)
+        }
+    }
+    else if (code === "ArrowLeft") {
+        if (!(Object.keys(sorted).indexOf(selected) === 0)) {
+            selected = Object.keys(sorted)[Object.keys(sorted).indexOf(selected) - 1];
+            regenerate(sorted)
+        }
+    }
+}
+
 document.getElementById('year').addEventListener('change', () => {
     console.log(document.getElementById('year').value);
 });
 
-document.getElementById('rightarrow').addEventListener('click',() => {
-    if (!(Object.keys(sorted).indexOf(selected) === Object.keys(sorted).length -1)) {
-        selected = Object.keys(sorted)[Object.keys(sorted).indexOf(selected) + 1];
-        regenerate(sorted)
-    }
+document.getElementById('rightarrow').addEventListener('click', () => {
+    shift("ArrowRight");
 });
 
-document.getElementById('leftarrow').addEventListener('click',() => {
-    if (!(Object.keys(sorted).indexOf(selected) === 0)) {
-        selected = Object.keys(sorted)[Object.keys(sorted).indexOf(selected) - 1];
-        regenerate(sorted)
-    }
+document.getElementById('leftarrow').addEventListener('click', () => {
+    shift("ArrowLeft");
 });
 
+document.addEventListener('keydown', (event) => {
+    shift(event.key);
+});
