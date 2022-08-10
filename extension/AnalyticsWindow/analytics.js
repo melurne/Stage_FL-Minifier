@@ -6,8 +6,7 @@ const VIEWBOX_HEIGHT = 20;
 const VIEWBOX_WIDTH = 1400;
 const LINE_COLOR = "#47BDFF";
 const FADED_LINE_COLOR = "#C7C7C7";
-var selected = (new Date((new Date()).getFullYear() + "-" + ((new Date()).getMonth()+1) + "-" + (new Date()).getDate())).getTime() ;
-console.log(selected);
+let selected;
 
 function generateReports(data, reportsContainer) {
     for (date in data) {
@@ -102,7 +101,6 @@ function generateTimeline(sortedData, svg) {
             r = 4;
         }
         innerhtml = innerhtml + "<circle cx='" + (parseInt(month)*30+parseInt(day))*VIEWBOX_WIDTH/365 + "' cy='10' r='" + r + "' fill='" + LINE_COLOR + "'/>\n";
-        console.log(year, month, day);
     }
 
     svg.innerHTML = innerhtml;
@@ -116,9 +114,9 @@ fetch("http://localhost:8080/analytics/" + id).then(raw => {
                 sorted[extractDate(date)] = {};
             }
             sorted[extractDate(date)][date] = data[date];
+            selected = extractDate(date);
         }
         generateTimeline(sorted, timeline);
-        console.log(sorted);
 
         generateReports(data, reportsContainer);
     });
