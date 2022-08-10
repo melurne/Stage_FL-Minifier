@@ -7,6 +7,7 @@ const VIEWBOX_WIDTH = 1400;
 const LINE_COLOR = "#47BDFF";
 const FADED_LINE_COLOR = "#C7C7C7";
 let selected;
+let sorted;
 
 function generateReports(data, reportsContainer) {
     for (date in data) {
@@ -116,9 +117,43 @@ fetch("http://localhost:8080/analytics/" + id).then(raw => {
             sorted[extractDate(date)][date] = data[date];
             selected = extractDate(date);
         }
-        generateTimeline(sorted, timeline);
-
-        generateReports(data, reportsContainer);
+        regenerate(sorted);
     });
+});
+
+function regenerate(sorted) {
+    reportsContainer.innerHTML = "";
+    generateTimeline(sorted, timeline);
+    generateReports(sorted[selected], reportsContainer);
+    if (Object.keys(sorted).indexOf(selected) === 0) {
+        document.getElementById('rightarrow').style.background = "#AAAAEE";
+        document.getElementById('leftarrow').style.background = "#AAAAAA";
+    }
+    else if (Object.keys(sorted).indexOf(selected) === Object.keys(sorted).length -1) {
+        document.getElementById('rightarrow').style.background = "#AAAAAA";
+        document.getElementById('leftarrow').style.background = "#AAAAEE";
+    }
+    else {
+        document.getElementById('rightarrow').style.background = "#AAAAEE";
+        document.getElementById('leftarrow').style.background = "#AAAAEE";
+    }
+}
+
+document.getElementById('year').addEventListener('change', () => {
+    console.log(document.getElementById('year').value);
+});
+
+document.getElementById('rightarrow').addEventListener('click',() => {
+    if (!(Object.keys(sorted).indexOf(selected) === Object.keys(sorted).length -1)) {
+        selected = Object.keys(sorted)[Object.keys(sorted).indexOf(selected) + 1];
+        regenerate(sorted)
+    }
+});
+
+document.getElementById('leftarrow').addEventListener('click',() => {
+    if (!(Object.keys(sorted).indexOf(selected) === 0)) {
+        selected = Object.keys(sorted)[Object.keys(sorted).indexOf(selected) - 1];
+        regenerate(sorted)
+    }
 });
 
