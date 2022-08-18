@@ -1,0 +1,21 @@
+{
+	"name": "Background filterlists Checker",
+	"description" : "Run filterlists Checker in the background",
+	"version": "0.1",
+	"manifest_version": 2,
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"content_scripts": [
+		{
+			"run_at": "document_start",
+			"matches": ["*://*/*"],
+			"js": ["content.js"]
+		}
+	],
+	"action": {
+		"default_popup": "popupWindow/popup.html"
+	},
+	"permissions": ["storage", "tabs", "scripting"],
+	"host_permissions": ["https://*/*", "http://*/*"]
+}
