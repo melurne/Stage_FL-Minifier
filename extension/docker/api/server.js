@@ -3,6 +3,12 @@ const nodePickle = require("pickle");
 const cors = require("cors");
 const MongoClient = require('mongodb').MongoClient;
 
+const { Client } = require('pg')
+const postgres = new Client();
+postgres.connect().then(() => {
+    console.log("Succesfully connected to postgres");
+});
+
 const redis = require('redis');
 redis_client = redis.createClient({url:"redis://queue:6379"});
 

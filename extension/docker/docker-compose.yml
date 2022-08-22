@@ -2,6 +2,18 @@ version: '3.1'
 
 services:
 
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8020:8080
+
   mongo:
     image: mongo:3.6
     # restart: always
@@ -43,9 +55,16 @@ services:
       - 8080:8080
     # networks:
     #   - backend
+    environment:
+      PGUSER: postgres
+      PGHOST: db
+      PGPASSWORD: example
+      PGDATABASE: testing
+      PGPORT: 5432
     links:
       - mongo:database
       - redis:queue
+      - db:db
 
   logger:
     tty: true
