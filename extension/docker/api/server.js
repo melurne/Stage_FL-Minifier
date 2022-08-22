@@ -34,72 +34,84 @@ redis_client.connect().then(()=>{
 });
 
 app.get('/tests', (req, res) => {
-    db.collection("testElements").find({}).toArray((err, docs) =>{
-        if (err) {
-            console.error(err);
-            throw err
-        }
-        res.status(200).json(docs)
-    });
+    postgres.query(
+        "SELECT ba.id, tests.elem FROM tests\
+        JOIN tests_batch ON tests.id = tests_batch.test\
+        JOIN batch AS ba ON ba.id = tests_batch.batch\
+        WHERE NOT EXISTS (\
+        SELECT b.id, b.ver\
+        FROM batch AS b\
+        WHERE b.ver > ba.ver\
+        );",
+        (err, docs) => {
+            if (err) {
+                console.error(err);
+                throw err
+            }
+            res.status(200).json(docs.rows.map(x => x["elem"]))
+        });
 });
 
 app.post('/result', (req, res) => {
-    // console.log(req.body)
-    // nodePickle.dumps(req.body, data => {
-        // pickle.loads(data, function(original) {
-        //     console.log("original:", original);
-        // });
-        redis_client.publish(
-            "Queue", 
-            JSON.stringify(req.body)
-        ).then(() => {
-            res.status(200).send("AK");
-        });
-    // });
-});
-
-app.get('/current/:id', (req, res) => {
-    db.collection("users").find({userID: req.params.id}).toArray((err, docs) =>{
-        if (err) {
-            console.error(err);
-            throw err
-        }
-        res.status(200).json(docs[0].current)
+    redis_client.publish(
+        "Queue", 
+        JSON.stringify(req.body)
+    ).then(() => {
+        res.status(200).send("AK");
     });
 });
 
-app.get('/analytics/:id', (req, res) => {
-    db.collection("users").find({userID: req.params.id}).toArray((err, docs) =>{
-        if (err) {
-            console.error(err);
-            throw err
+app.get('/current/:id', (req, res) => {
+    postgres.query(
+        "SELECT users.current FROM users\
+        WHERE users.extensionid = '" + req.params.id + "';",
+        (err, docs) => {
+            if (err) {
+                console.error(err);
+                throw err
+            }
+            res.status(200).json(docs.rows[0]["current"]["current"]);
         }
+    );
+});
 
-        let rawData = docs[0];
-        let lastTest = rawData.diffs[Object.keys(rawData.diffs)[0]]["+"];
+app.get('/analytics/:id', (req, res) => {
+    postgres.query(
+        "SELECT diffs.stamp, diffs.additions, diffs.removed FROM diffs\
+        JOIN users ON users.id = diffs.userID\
+        WHERE users.extensionID = '" + req.params.id + "'\
+        ORDER BY diffs.stamp;\
+        ", (err, docs) => {
+            if (err) {
+                console.error(err);
+                throw err
+            }
+            
+            let rawData = docs.rows;
+            let lastTest = rawData[0]["additions"]["+"];
 
-        let dataPoints = {};
-        dataPoints[Object.keys(rawData.diffs)[0]] = {
-            "state": Object.assign([], lastTest), 
-            "diffs": {"+": [], "-": []}
-        };
- 
-        Object.keys(rawData.diffs).forEach((date, index) => {
-            if (index != 0) {
-                for (rm of rawData.diffs[date]["-"]) {
-                    lastTest = lastTest.filter(l => l != rm);
+            let dataPoints = {};
+
+            dataPoints[rawData[0]["stamp"]] = {
+                "state" : Object.assign([], lastTest),
+                "diffs" : {"+": [], "-": []}
+            }
+
+            rawData.forEach((test, index) => {
+                if (index != 0) {
+                    for (rm of test["removed"]["-"]) {
+                        lastTest = lastTest.filter(l => l != rm);
+                    }
+                    for (add of test["additions"]["+"]) {
+                        lastTest.push(add);
+                    }
+                    dataPoints[test["stamp"]] = {
+                        "state": Object.assign([], lastTest), 
+                        "diffs": {"+": test["additions"]["+"], "-": test["removed"]["-"]}
+                    };
                 }
-                for (add of rawData.diffs[date]["+"]) {
-                    lastTest.push(add);
-                }
-                dataPoints[date] = {
-                    "state": Object.assign([], lastTest), 
-                    "diffs": Object.assign({}, rawData.diffs[date])
-                };
-            }   
-        });
-
-        res.status(200).json(dataPoints);
+            });
+            res.status(200).json(dataPoints);
     });
 });
 
