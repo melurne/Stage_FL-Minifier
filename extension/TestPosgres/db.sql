@@ -11,45 +11,45 @@ DROP TABLE IF EXISTS tests_versions CASCADE;
 
 CREATE TABLE IF NOT EXISTS tests
 (
-    id INT PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     elem VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS batch
 (
-    id INT PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     ver DATE
 );
 
 CREATE TABLE IF NOT EXISTS tests_batch 
 (
-    test INT REFERENCES tests(id),
-    batch INT REFERENCES batch(id)
+    test SERIAL REFERENCES tests(id),
+    batch SERIAL REFERENCES batch(id)
 );
 
 CREATE TABLE IF NOT EXISTS lists
 (
-    id INT PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     nom VARCHAR(100),
     ver DATE
 );
 
 CREATE TABLE IF NOT EXISTS lists_tests
 (
-    list INT REFERENCES lists(id),
-    test INT REFERENCES tests(id)
+    list SERIAL REFERENCES lists(id),
+    test SERIAL REFERENCES tests(id)
 );
 
 CREATE TABLE IF NOT EXISTS users
 (
-    id INT PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     extensionID VARCHAR(100),
     current JSON
 );
 
 CREATE TABLE IF NOT EXISTS diffs
 (
-    userID INT REFERENCES users(id),
+    userID SERIAL REFERENCES users(id),
     stamp TIMESTAMP NOT NULL,
     CONSTRAINT identifier PRIMARY KEY (userID, stamp),
     additions JSON,
@@ -58,28 +58,28 @@ CREATE TABLE IF NOT EXISTS diffs
 
 CREATE TABLE IF NOT EXISTS versions
 (
-    id INT PRIMARY KEY NOT NULL,
-    list INT REFERENCES lists(id),
+    id SERIAL PRIMARY KEY NOT NULL,
+    list SERIAL REFERENCES lists(id),
     ver DATE
 );
 
 CREATE TABLE IF NOT EXISTS tests_versions
 (
-    test INT REFERENCES tests(id),
-    versions INT REFERENCES versions(id)
+    test SERIAL REFERENCES tests(id),
+    versions SERIAL REFERENCES versions(id)
 );
 
-INSERT INTO users VALUES (1, 'extension', '{"current": []}');
+INSERT INTO users(extensionID, current) VALUES ('extension', '{"current": []}');
 
-INSERT INTO tests VALUES (1, '<img id="test0"/>');
-INSERT INTO tests VALUES (2, '<img id="test1"/>');
-INSERT INTO tests VALUES (3, '<img id="test2"/>');
-INSERT INTO tests VALUES (4, '<img id="test3"/>');
-INSERT INTO tests VALUES (5, '<img id="test4"/>');
+INSERT INTO tests(elem) VALUES ('<img id="test0"/>');
+INSERT INTO tests(elem) VALUES ('<img id="test1"/>');
+INSERT INTO tests(elem) VALUES ('<img id="test2"/>');
+INSERT INTO tests(elem) VALUES ('<img id="test3"/>');
+INSERT INTO tests(elem) VALUES ('<img id="test4"/>');
 
-INSERT INTO lists VALUES (1, 'L1', now());
-INSERT INTO lists VALUES (2, 'L2', now());
-INSERT INTO lists VALUES (3, 'L3', now());
+INSERT INTO lists(nom, ver) VALUES ('L1', now());
+INSERT INTO lists(nom, ver) VALUES ('L2', now());
+INSERT INTO lists(nom, ver) VALUES ('L3', now());
 
 INSERT INTO lists_tests VALUES (1, 1);
 INSERT INTO lists_tests VALUES (1, 2);
@@ -94,7 +94,7 @@ INSERT INTO lists_tests VALUES (3, 2);
 INSERT INTO lists_tests VALUES (3, 3);
 INSERT INTO lists_tests VALUES (3, 5);
 
-INSERT INTO batch VALUES (1, now());
+INSERT INTO batch(ver) VALUES (now());
 
 INSERT INTO tests_batch VALUES (1, 1);
 INSERT INTO tests_batch VALUES (2, 1);
