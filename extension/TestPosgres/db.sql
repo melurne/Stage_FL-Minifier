@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS users
 CREATE TABLE IF NOT EXISTS diffs
 (
     userID SERIAL REFERENCES users(id),
-    stamp TIMESTAMP NOT NULL,
+    stamp VARCHAR(100) NOT NULL,
     CONSTRAINT identifier PRIMARY KEY (userID, stamp),
     additions JSON,
     removed JSON
