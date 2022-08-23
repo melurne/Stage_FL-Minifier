@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch("http://localhost:8080/tests").then((res) => {
             res.json().then(res => {
                 results = [];
-                for (test of res[0].tests) {
+                for (test of res.tests) {
                     var dv = document.createElement('div');
                     dv.innerHTML = test;
                     var elem = dv.firstChild;
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         fetch("http://localhost:8080/tests").then((res) => {
             res.json().then(elems => {
-                imgs = elems[0].tests.map(t => {
+                imgs = elems.tests.map(t => {
                     var dv = document.createElement('div');
                     dv.innerHTML = t;
                     return dv.firstChild;

@@ -48,7 +48,7 @@ app.get('/tests', (req, res) => {
                 console.error(err);
                 throw err
             }
-            res.status(200).json(docs.rows.map(x => x["elem"]))
+            res.status(200).json({"tests": docs.rows.map(x => x["elem"])})
         });
 });
 

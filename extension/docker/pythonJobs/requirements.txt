@@ -3,4 +3,4 @@ redis
 jupyter
 notebook
 papermill
-psycopg2
+psycopg2-binary
