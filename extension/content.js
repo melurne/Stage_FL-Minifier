@@ -1,3 +1,8 @@
+let extensionid;
+chrome.storage.sync.get(['extensionid'], (res) => {
+    extensionid = res.extensionid;
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     let capsule = document.createElement('div');
     document.body.appendChild(capsule);
@@ -39,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({id:"extension", results: results})
+                    body: JSON.stringify({id:extensionid, results: results})
                 }).then(() => {
                     document.body.removeChild(capsule);
                     console.log("Data Logged");

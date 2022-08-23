@@ -1,9 +1,14 @@
-id = "extension"
+let id;
+chrome.storage.sync.get(['extensionid'], (res) => {
+    id = res.extensionid;
+    document.getElementById("yourid").innerHTML = id;
+    updateLists();
+});
 
 function updateLists() {
     listsSpan = document.getElementById("lists");
     // alert(listsSpan);
-    fetch("http://localhost:8080/current/extension").then(res => {
+    fetch("http://localhost:8080/current/" + id).then(res => {
         res.json().then((lists) => {
             for (l of lists) {
                 
@@ -13,6 +18,7 @@ function updateLists() {
             }
         });
     });
+    
 }
 
 let but = document.getElementById("history");
@@ -20,4 +26,13 @@ but.addEventListener("click", () => {
     chrome.tabs.create({url: "AnalyticsWindow/analytics.html"});
 }); 
 
-updateLists();
+let commit = document.getElementById("commitid");
+commit.addEventListener("click", () => {
+    let newId = document.getElementById("extensionid").value;
+    // alert(newId);
+    chrome.storage.sync.set({extensionid: newId}, ()=>{});
+    // chrome.storage.sync.get(['extensionid'], (res) => {
+    //     document.getElementById("yourid").innerHTML = res.extensionid;
+    // });
+});
+

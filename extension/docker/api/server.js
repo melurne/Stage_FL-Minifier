@@ -88,6 +88,7 @@ app.get('/analytics/:id', (req, res) => {
             }
             
             let rawData = docs.rows;
+            console.log(req.params.id);
             let lastTest = rawData[0]["additions"]["+"];
 
             let dataPoints = {};

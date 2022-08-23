@@ -1,4 +1,21 @@
-id = "extension"
+let id;
+chrome.storage.sync.get(['extensionid'], (res) => {
+    id = res.extensionid;
+    fetch("http://localhost:8080/analytics/" + id).then(raw => {
+        raw.json().then(data => {
+            sorted = {};
+            for (date in data) {
+                if (!(Object.keys(sorted).includes(extractDate(date)))) {
+                    sorted[extractDate(date)] = {};
+                }
+                sorted[extractDate(date)][date] = data[date];
+                selected = extractDate(date);
+            }
+            regenerate(sorted);
+        });
+    });
+});
+
 
 let reportsContainer = document.getElementsByClassName("reportsList")[0];
 let timeline = document.getElementsByClassName("timeline")[0].getElementsByTagName('svg')[0];
@@ -107,25 +124,15 @@ function generateTimeline(sortedData, svg) {
     svg.innerHTML = innerhtml;
 }
 
-fetch("http://localhost:8080/analytics/" + id).then(raw => {
-    raw.json().then(data => {
-        sorted = {};
-        for (date in data) {
-            if (!(Object.keys(sorted).includes(extractDate(date)))) {
-                sorted[extractDate(date)] = {};
-            }
-            sorted[extractDate(date)][date] = data[date];
-            selected = extractDate(date);
-        }
-        regenerate(sorted);
-    });
-});
-
 function regenerate(sorted) {
     reportsContainer.innerHTML = "";
     generateTimeline(sorted, timeline);
     generateReports(sorted[selected], reportsContainer);
-    if (Object.keys(sorted).indexOf(selected) === 0) {
+    if (Object.keys(sorted).length === 1) {
+        document.getElementById('rightarrow').style.background = "#CCCCCC";
+        document.getElementById('leftarrow').style.background = "#CCCCCC";
+    }
+    else if (Object.keys(sorted).indexOf(selected) === 0) {
         document.getElementById('rightarrow').style.background = "#AAAAEE";
         document.getElementById('leftarrow').style.background = "#CCCCCC";
     }
