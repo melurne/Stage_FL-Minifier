@@ -1,7 +1,6 @@
 const express = require("express");
 const nodePickle = require("pickle");
 const cors = require("cors");
-const MongoClient = require('mongodb').MongoClient;
 
 const { Client } = require('pg')
 const postgres = new Client();
@@ -15,19 +14,6 @@ redis_client = redis.createClient({url:"redis://queue:6379"});
 var app = express();
 app.use(cors());
 app.use(express.json())
-
-mongourl = "mongodb://root:example@database:27017/"
-dbname = "test"
-let db
-
-MongoClient.connect(mongourl, (err, client) => {
-    if (err) {
-        console.error(err);
-        throw err
-    }
-    console.log("Succesfully connected to MongoDB");
-    db = client.db(dbname);
-});
 
 redis_client.connect().then(()=>{
     console.log("Succesfully connected to Redis");
