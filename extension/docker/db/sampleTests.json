@@ -1,9 +1,0 @@
-{
-    "tests" : [
-        "<img id=test0 />",
-        "<img id=test1 />",
-        "<img id=test2 />",
-        "<img id=test3 />",
-        "<img id=test4 />"
-    ]
-}

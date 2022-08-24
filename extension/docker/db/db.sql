@@ -101,14 +101,3 @@ INSERT INTO tests_batch VALUES (2, 1);
 INSERT INTO tests_batch VALUES (3, 1);
 INSERT INTO tests_batch VALUES (4, 1);
 INSERT INTO tests_batch VALUES (5, 1);
-
--- Get test batch query
-
--- SELECT ba.id, tests.elem FROM tests
--- JOIN tests_batch ON tests.id = tests_batch.test
--- JOIN batch AS ba ON ba.id = tests_batch.batch
--- WHERE NOT EXISTS (
---   SELECT b.id, b.ver
---   FROM batch AS b
---   WHERE b.ver > ba.ver
--- );
