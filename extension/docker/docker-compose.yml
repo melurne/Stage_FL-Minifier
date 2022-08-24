@@ -18,20 +18,15 @@ services:
   
   redis:
     image: redis:6.2
-    # restart: always
     ports:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning
-    # networks:
-    #   - backend
   
   api: 
     container_name: api
     build: ./api
     ports :
       - 8080:8080
-    # networks:
-    #   - backend
     environment:
       PGUSER: postgres
       PGHOST: db
@@ -39,7 +34,6 @@ services:
       PGDATABASE: testing
       PGPORT: 5432
     links:
-      - mongo:database
       - redis:queue
       - db:db
 
@@ -50,7 +44,7 @@ services:
       context: ./pythonJobs
       dockerfile: ./Dockerfile_Logger
     links:
-      - mongo:database
+      - db:db
       - redis:queue
   
   attacker:

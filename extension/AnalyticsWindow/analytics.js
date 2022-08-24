@@ -122,7 +122,7 @@ function regenerate(sorted) {
     generateReports(sorted[selected], reportsContainer);
 
     // Change arrow colors to reflect whether there are more changes forwards or backwards
-    if (Object.keys(sorted).length === 1) {
+    if (Object.keys(sorted).length <= 1) {
         document.getElementById('rightarrow').style.background = "#CCCCCC";
         document.getElementById('leftarrow').style.background = "#CCCCCC";
     }

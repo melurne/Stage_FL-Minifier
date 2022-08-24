@@ -8,6 +8,7 @@ postgres.connect().then(() => {
 });
 
 const redis = require('redis');
+const { createSecureServer } = require("http2");
 redis_client = redis.createClient({url:"redis://queue:6379"});
 redis_client.connect().then(()=>{
     console.log("Succesfully connected to Redis");
@@ -54,6 +55,10 @@ app.get('/current/:id', (req, res) => {
                 console.error(err);
                 throw err
             }
+            if (docs.rows.length === 0) {
+                res.status(200).json([]);
+                return;
+            }
             res.status(200).json(docs.rows[0]["current"]["current"]);
         }
     );
@@ -71,8 +76,12 @@ app.get('/analytics/:id', (req, res) => {
                 throw err
             }
             
+            if (docs.rows.length === 0) {
+                res.status(200).json({});
+                return;
+            }
+
             let rawData = docs.rows;
-            console.log(req.params.id);
             let lastTest = rawData[0]["additions"]["+"];
 
             let dataPoints = {};
