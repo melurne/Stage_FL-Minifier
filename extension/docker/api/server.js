@@ -1,5 +1,4 @@
 const express = require("express");
-const nodePickle = require("pickle");
 const cors = require("cors");
 
 const { Client } = require('pg')
@@ -10,14 +9,13 @@ postgres.connect().then(() => {
 
 const redis = require('redis');
 redis_client = redis.createClient({url:"redis://queue:6379"});
+redis_client.connect().then(()=>{
+    console.log("Succesfully connected to Redis");
+});
 
 var app = express();
 app.use(cors());
 app.use(express.json())
-
-redis_client.connect().then(()=>{
-    console.log("Succesfully connected to Redis");
-});
 
 app.get('/tests', (req, res) => {
     postgres.query(
@@ -100,10 +98,6 @@ app.get('/analytics/:id', (req, res) => {
             });
             res.status(200).json(dataPoints);
     });
-});
-
-app.get('/isAlive', (req, res) => {
-	res.status(200).send("Alive")
 });
 
 app.listen(8080, () => {
