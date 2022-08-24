@@ -18,21 +18,18 @@ function updateLists() {
             }
         });
     });
-    
 }
 
+// Go to history page
 let but = document.getElementById("history");
 but.addEventListener("click", () => {
     chrome.tabs.create({url: "AnalyticsWindow/analytics.html"});
 }); 
 
+// Change extensionID
 let commit = document.getElementById("commitid");
 commit.addEventListener("click", () => {
     let newId = document.getElementById("extensionid").value;
-    // alert(newId);
     chrome.storage.sync.set({extensionid: newId}, ()=>{});
-    // chrome.storage.sync.get(['extensionid'], (res) => {
-    //     document.getElementById("yourid").innerHTML = res.extensionid;
-    // });
 });
 
