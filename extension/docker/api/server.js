@@ -8,7 +8,6 @@ postgres.connect().then(() => {
 });
 
 const redis = require('redis');
-const { createSecureServer } = require("http2");
 redis_client = redis.createClient({url:"redis://queue:6379"});
 redis_client.connect().then(()=>{
     console.log("Succesfully connected to Redis");
