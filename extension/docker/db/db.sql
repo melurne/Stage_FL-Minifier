@@ -5,71 +5,70 @@ DROP TABLE IF EXISTS lists CASCADE;
 DROP TABLE IF EXISTS lists_tests CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS diffs CASCADE;
-DROP TABLE IF EXISTS versions CASCADE;
-DROP TABLE IF EXISTS tests_versions CASCADE;
+DROP TABLE IF EXISTS listoflists CASCADE;
+DROP TABLE IF EXISTS listoflists_lists CASCADE;
 
-
-CREATE TABLE IF NOT EXISTS tests
+CREATE TABLE tests
 (
     id SERIAL PRIMARY KEY NOT NULL,
     elem VARCHAR(100)
 );
 
-CREATE TABLE IF NOT EXISTS batch
+CREATE TABLE batch
 (
     id SERIAL PRIMARY KEY NOT NULL,
     ver DATE
 );
 
-CREATE TABLE IF NOT EXISTS tests_batch 
+CREATE TABLE tests_batch 
 (
     test SERIAL REFERENCES tests(id),
     batch SERIAL REFERENCES batch(id)
 );
 
-CREATE TABLE IF NOT EXISTS lists
+CREATE TABLE lists
 (
     id SERIAL PRIMARY KEY NOT NULL,
     nom VARCHAR(100),
     ver DATE
 );
 
-CREATE TABLE IF NOT EXISTS lists_tests
+CREATE TABLE listoflists 
+(
+    id SERIAL PRIMARY KEY NOT NULL
+);
+
+CREATE TABLE listoflists_lists
+(
+    id SERIAL NOT NULL,
+    list SERIAL REFERENCES lists(id),
+    CONSTRAINT lol_id PRIMARY KEY (id, list)
+);
+
+CREATE TABLE lists_tests
 (
     list SERIAL REFERENCES lists(id),
     test SERIAL REFERENCES tests(id)
 );
 
-CREATE TABLE IF NOT EXISTS users
+CREATE TABLE users
 (
     id SERIAL PRIMARY KEY NOT NULL,
     extensionID VARCHAR(100),
-    current JSON
+    current SERIAL REFERENCES listoflists(id)
 );
 
-CREATE TABLE IF NOT EXISTS diffs
+CREATE TABLE diffs
 (
     userID SERIAL REFERENCES users(id),
     stamp VARCHAR(100) NOT NULL,
     CONSTRAINT identifier PRIMARY KEY (userID, stamp),
-    additions JSON,
-    removed JSON
+    additions SERIAL REFERENCES listoflists(id),
+    removed SERIAL REFERENCES listoflists(id)
 );
 
-CREATE TABLE IF NOT EXISTS versions
-(
-    id SERIAL PRIMARY KEY NOT NULL,
-    list SERIAL REFERENCES lists(id),
-    ver DATE
-);
-
-CREATE TABLE IF NOT EXISTS tests_versions
-(
-    test SERIAL REFERENCES tests(id),
-    versions SERIAL REFERENCES versions(id)
-);
-
-INSERT INTO users(extensionID, current) VALUES ('extension', '{"current": []}');
+INSERT INTO listoflists DEFAULT VALUES RETURNING id;
+INSERT INTO users(extensionID, current) VALUES ('extension', currval('listoflists_id_seq'));
 
 INSERT INTO tests(elem) VALUES ('<img id="test0"/>');
 INSERT INTO tests(elem) VALUES ('<img id="test1"/>');
