@@ -67,7 +67,7 @@ CREATE TABLE diffs
     removed SERIAL REFERENCES listoflists(id)
 );
 
-INSERT INTO listoflists DEFAULT VALUES RETURNING id;
+INSERT INTO listoflists DEFAULT VALUES;
 INSERT INTO users(extensionID, current) VALUES ('extension', currval('listoflists_id_seq'));
 
 INSERT INTO tests(elem) VALUES ('<img id="test0"/>');

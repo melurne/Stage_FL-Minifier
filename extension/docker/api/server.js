@@ -46,6 +46,12 @@ app.post('/result', (req, res) => {
 });
 
 app.get('/current/:id', (req, res) => {
+    // new scheme
+    // SELECT lists.nom, lists.ver FROM lists
+    // JOIN listoflists_lists ON listoflists_lists.list = lists.id
+    // JOIN listoflists ON listoflists.id = listoflists_lists.id
+    // JOIN users ON users.current = listoflists.id
+    // WHERE users.extensionID = 'something'
     postgres.query(
         "SELECT users.current FROM users\
         WHERE users.extensionid = '" + req.params.id + "';",
